@@ -26,10 +26,6 @@
 
         <activity android:name=".SubActivity"/>
         <activity android:name=".Categori"/>
-        <activity android:name=".EastJeju"/>
-        <activity android:name=".WestJeju"/>
-        <activity android:name=".EastSeo"/>
-        <activity android:name=".WestSeo"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
