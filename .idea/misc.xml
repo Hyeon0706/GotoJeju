@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/categori.xml" value="0.36034732272069464" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/categori.xml" value="0.1" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/child_row.xml" value="0.1911231884057971" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/eastjeju.xml" value="0.2" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/eastseo.xml" value="0.11875" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/group_row.xml" value="0.1911231884057971" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/login.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/subactivity_main.xml" value="0.11875" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/suvactivity_main.xml" value="0.12604166666666666" />
