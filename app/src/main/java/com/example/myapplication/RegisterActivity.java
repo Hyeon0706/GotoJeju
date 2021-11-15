@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;     //파이어베이스 인증
     private DatabaseReference nDatabaseRef; //실시간 데이터베이스
-    private EditText mEtEmail,mEtPwd,mEtName,mEtPhoneNum;       //회원가입 입력필드
+    private EditText mEtEmail,mEtPwd;       //회원가입 입력필드
     private Button mBtnRegister;            //회원가입 버튼
 
 
@@ -33,12 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth =FirebaseAuth.getInstance();
         nDatabaseRef= FirebaseDatabase.getInstance().getReference("myapplication");//별칭
 
-        mEtName=findViewById(R.id.et_name);
-        mEtPhoneNum=findViewById(R.id.et_phoneNum);
         mEtEmail=findViewById(R.id.et_email);
         mEtPwd=findViewById(R.id.et_pwd);
-
-
         mBtnRegister=findViewById(R.id.btn_register);
 
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
@@ -46,22 +42,18 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 회원가입 처리 시작
                 String strEmail =mEtEmail.getText().toString(); //문자열로 입력된 걸 가져옴
-                String strPwd=mEtPwd.getText().toString();
-                String strName=mEtName.getText().toString();
-                String strPhoneNum=mEtPhoneNum.getText().toString();
+                String strPwd=mEtPwd.getText().toString(); //변수에 할당
 
                 //firebaseAuth 진행
                 mFirebaseAuth.createUserWithEmailAndPassword(strEmail,strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
+                    public void onComplete(@NonNull Task<AuthResult> task) //인증처리가 완료될떄
                     {
                         if(task.isSuccessful()) {
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); //현재 유저 가져오기
                             UserAccount account =new UserAccount();
                             account.setIdToken(firebaseUser.getUid()); //고윳값
                             account.setEmailId(firebaseUser.getEmail());
-                      //     account.setName(firebaseUser.getDisplayName());
-                        //    account.setPhoneNum(firebaseUser.getPhoneNumber());
                             account.setPassword(strPwd);
 
                             //setValue :database에 insert(삽입)행위
