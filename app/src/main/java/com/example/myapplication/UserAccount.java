@@ -6,7 +6,8 @@ public class UserAccount {
     private String idToken; //firebase uid (고유 토큰정보)
     private String emailId; // 이메일 아이디
     private String password;// 페스워드
-
+    private String name;
+    private String phoneNum;
 
 
     public UserAccount(){ } //파이어베이스 에서는 빈생성자만들어야함
@@ -40,6 +41,19 @@ public class UserAccount {
     }
 
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 }
