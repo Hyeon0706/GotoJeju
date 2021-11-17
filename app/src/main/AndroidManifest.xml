@@ -14,22 +14,35 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".resetPwdActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
         </activity>
 
         <activity android:name=".SubActivity"/>
         <activity android:name=".Categori"/>
-        <activity android:name=".EastJeju"/>
-        <activity android:name=".WestJeju"/>
-        <activity android:name=".EastSeo"/>
-        <activity android:name=".WestSeo"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
