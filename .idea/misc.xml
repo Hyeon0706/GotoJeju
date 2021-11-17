@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1824074074074074" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_findPwd.xml" value="0.25" />
+        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_findpwd.xml" value="0.22" />
+        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/categori.xml" value="0.20520833333333333" />

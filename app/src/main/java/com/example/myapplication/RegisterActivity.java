@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mEtEmail=findViewById(R.id.et_email);
         mEtPwd=findViewById(R.id.et_pwd);
-        mBtnRegister=findViewById(R.id.btn_register);
+        mBtnRegister=findViewById(R.id.btn_resetPwd);
         mEtName=findViewById(R.id.et_name);
         mEtphoneNum=findViewById(R.id.et_phoneNum);
 
