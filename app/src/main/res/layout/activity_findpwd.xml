@@ -45,14 +45,14 @@
         android:hint="이메일을 입력하세요"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_resetPwd"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/btn_resetPwd"
+        android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="비밀번호 초기화"
