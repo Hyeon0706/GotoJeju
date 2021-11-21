@@ -48,6 +48,9 @@ public class resetPwdActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Toast.makeText(resetPwdActivity.this, "이메일이 전송되었습니다.",Toast.LENGTH_SHORT).show();
                         finish();
+                    }else{
+                        Toast.makeText(resetPwdActivity.this, "이메일이 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+
                     }
                     }
                 });
