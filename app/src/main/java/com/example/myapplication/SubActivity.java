@@ -22,10 +22,11 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 
-public class SubActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class SubActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
+    private boolean isCameraAnimated = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -40,6 +41,8 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
 
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+
     }
 
     @Override
@@ -60,13 +63,36 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(@NonNull NaverMap naverMap) {
         this.naverMap = naverMap;
         CameraPosition cameraPosition = new CameraPosition(new LatLng(33.37641210362972,126.53860174219157),10);
+        Xmlparser.mapx = 126.53860174219157;
+        Xmlparser.mapy = 33.37641210362972;
+
         naverMap.setCameraPosition(cameraPosition);
         naverMap.setLocationSource(locationSource);
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
+
+        naverMap.addOnCameraChangeListener(this);
+        naverMap.addOnCameraIdleListener(this);
+
         setUpMap();
+
+
     }
 
+    @Override
+    public void onCameraChange(int reason, boolean animated) {
+        isCameraAnimated = animated;
+    }
+
+    @Override
+    public void onCameraIdle() {
+        if (isCameraAnimated) {
+            LatLng mapCenter = naverMap.getCameraPosition().target;
+            Xmlparser.mapx = mapCenter.longitude;
+            Xmlparser.mapy = mapCenter.latitude;
+            setUpMap();
+        }
+    }
     private void setUpMap() {
 
         Xmlparser parser = new Xmlparser();
@@ -87,6 +113,7 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
                 marker.setAnchor(new PointF(0.5f,1.0f));
                 marker.setWidth(50);
                 marker.setHeight(80);
+                marker.setCaptionText(entity.getTitle());
             }
         }
     }
