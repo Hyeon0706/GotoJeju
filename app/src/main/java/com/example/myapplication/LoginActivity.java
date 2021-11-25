@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button btn_register;
-        btn_register = findViewById(R.id.btn_resetPwd);
+        btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
