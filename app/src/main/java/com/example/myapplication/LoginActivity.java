@@ -43,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                 //로그인 요청
                 String strEmail =mEtEmail.getText().toString(); //문자열로 입력된 걸 가져옴
                 String strPwd=mEtPwd.getText().toString();
-
+                if(strEmail.equals(""))//팅김 방지
+                {}
+                else{
                 mFirebaseAuth.signInWithEmailAndPassword(strEmail,strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
             }
         });
 

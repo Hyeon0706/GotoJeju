@@ -54,12 +54,47 @@ public class RegisterActivity extends AppCompatActivity {
                 String strName = mEtName.getText().toString(); // 이름 할당
                 String strPhoneNum = mEtphoneNum.getText().toString(); //폰번호 할당
 
+                    if(strName.equals(""))//팅김 방지
+                    {}
+                    else{
                     //firebaseAuth 진행
                     mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) //인증처리가 완료될떄
                         {
-                            if (task.isSuccessful()) {
+                            TextView emailText =findViewById(R.id.et_emailtext); // 이메일 텍스트 상자 선언
+                            TextView pwdText=findViewById(R.id.et_pwdcheck); // 비밀번호 텍스트 상자 선언
+
+                            if((!(strEmail.contains("@")&&strEmail.contains("."))) //이메일이 아닐때
+                                    | (!(strPwd.equals(strPwd2)))                          //비번이 다를떄
+                                    | (strPwd.length()<7))                             //비번 길이가 7이하일떄
+                            {
+
+
+                                if(!(strEmail.contains("@")&&strEmail.contains("."))) {
+                                    Toast.makeText(RegisterActivity.this, "이메일 형식으로 수정하세요.", Toast.LENGTH_SHORT).show();
+                                    emailText.setTextColor(0xAAef484a);//빨강색
+                                    emailText.setText("이메일 형식으로 수정하세요.");
+                                }else{
+                                    emailText.setTextColor(0xAA1e6de0);//파랑색
+                                    emailText.setText("이메일 형식이 맞습니다.");
+                                }
+
+
+                                if(strPwd.length()<7) {
+                                    Toast.makeText(RegisterActivity.this, "비밀번호 길이가 7보다 작습니다.", Toast.LENGTH_SHORT).show();
+                                    pwdText.setTextColor(0xAAef484a);//빨강색
+                                    pwdText.setText("비밀번호 길이가 7보다 작습니다.");
+                                }else if(!(strPwd.equals(strPwd2))) {
+                                    Toast.makeText(RegisterActivity.this, "비밀번호가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                    pwdText.setTextColor(0xAAef484a);//빨강색
+                                    pwdText.setText("비밀번호가 일치 하지 않습니다.");
+                                }else{
+                                    pwdText.setTextColor(0xAA1e6de0);//파랑색
+                                    pwdText.setText("비밀번호가 확인되었습니다.");
+                                }
+
+                            } else if (task.isSuccessful()) {
                                 FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); //현재 유저 가져오기
                                 UserAccount account = new UserAccount();
                                 //데이터베이스에 삽입
@@ -74,26 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 Toast.makeText(RegisterActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
                                 finish();
-                            }else if(!(strEmail.contains("@")&&strEmail.contains("."))){
-                            Toast.makeText(RegisterActivity.this, "이메일 형식으로 수정하세요.", Toast.LENGTH_SHORT).show();
-                                TextView emailText =findViewById(R.id.et_emailtext);
-                                emailText.setTextColor(0xAA1e6de0);//파랑색
-                                emailText.setText("이메일 형식으로 수정하세요.");
-                            }else if (!(strPwd.equals(strPwd2))) {
-                            Toast.makeText(RegisterActivity.this, "비밀번호가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();
-                            TextView pwdText=findViewById(R.id.et_pwdcheck);
-                            pwdText.setTextColor(0xAA1e6de0);//파랑색
-                            pwdText.setText("비밀번호가 일치 하지 않습니다.");
-
-                            } else if(strPwd.length()<7){
-                            Toast.makeText(RegisterActivity.this, "비밀번호 길이가 7보다 작습니다.", Toast.LENGTH_SHORT).show();
-                                TextView pwdText=findViewById(R.id.et_pwdcheck);
-                                pwdText.setTextColor(0xAAef484a);//빨강색
-                                pwdText.setText("비밀번호 길이가 7보다 작습니다.");
-
-                        }else {
+                            }else {
                                 Toast.makeText(RegisterActivity.this, "이미 있는 이메일입니다.", Toast.LENGTH_SHORT).show();
-                                TextView emailText =findViewById(R.id.et_emailtext);
                                 emailText.setTextColor(0xAAef484a);//빨강색
                                 emailText.setText("이미 있는 이메일입니다.");
                             }
@@ -102,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     });
 
+            }
             }
         });
 

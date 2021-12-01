@@ -42,19 +42,22 @@ public class resetPwdActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //로그인 요청
                 String strEmail =mEtEmail.getText().toString(); //문자열로 입력된 걸 가져옴
-                mFirebaseAuth.sendPasswordResetEmail(strEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(resetPwdActivity.this, "이메일이 전송되었습니다.",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(resetPwdActivity.this, "이메일이 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                if(strEmail.equals(""))//팅김 방지
+                {}
+                else {
+                    mFirebaseAuth.sendPasswordResetEmail(strEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(resetPwdActivity.this, "이메일이 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(resetPwdActivity.this, "이메일이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
 
-                    }
-                    }
-                });
-
+                            }
+                        }
+                    });
+                }
 
 
 
