@@ -15,6 +15,8 @@ public class Xmlparser extends Thread {
     public static double mapy;
     public static int radius = 5000;
 
+
+
     public Xmlparser() {
         try {
             apiParserSearch();
@@ -40,8 +42,8 @@ public class Xmlparser extends Thread {
 
         ArrayList<Touristdestination> list = new ArrayList<Touristdestination>();
 
-        String mapx = null, mapy= null, title = null;
-        boolean braclility_mapx = false, braclility_mapy = false, braclility_title = false;
+        String mapx = null, mapy= null, title = null, addr = null, tel = null, firstimage = null;
+        boolean braclility_mapx = false, braclility_mapy = false, braclility_title = false, braclility_addr = false, braclility_tel = false, braclility_firstimage = false;
 
         while (event_type != XmlPullParser.END_DOCUMENT) {
             if (event_type == XmlPullParser.START_TAG) {
@@ -55,7 +57,15 @@ public class Xmlparser extends Thread {
                 if (tag.equals("title")){
                     braclility_title = true;
                 }
-
+                if (tag.equals("addr1")){
+                    braclility_addr = true;
+                }
+                if (tag.equals("tel")){
+                    braclility_tel = true;
+                }
+                if (tag.equals("firstimage")){
+                    braclility_firstimage = true;
+                }
             } else if (event_type == XmlPullParser.TEXT) {
                 if(braclility_mapx == true){
                     mapx = xpp.getText();
@@ -66,7 +76,18 @@ public class Xmlparser extends Thread {
                 }else if(braclility_title == true){
                     title = xpp.getText();
                     braclility_title = false;
+                }else if(braclility_addr == true){
+                    addr = xpp.getText();
+                    braclility_addr = false;
+                }else if(braclility_tel == true){
+                    tel = xpp.getText();
+                    braclility_tel = false;
+                }else if(braclility_firstimage == true){
+                    firstimage = xpp.getText();
+                    braclility_firstimage = false;
                 }
+
+
 
             } else if (event_type == XmlPullParser.END_TAG) {
                 tag = xpp.getName();
@@ -75,6 +96,9 @@ public class Xmlparser extends Thread {
                     entity.setMapx(Double.valueOf(mapx));
                     entity.setMapy(Double.valueOf(mapy));
                     entity.setTitle(title);
+                    entity.setAddr(addr);
+                    entity.setTel(tel);
+                    entity.setFirstimage(firstimage);
                     list.add(entity);
                 }
             }
