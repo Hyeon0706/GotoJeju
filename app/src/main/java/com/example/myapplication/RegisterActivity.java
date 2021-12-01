@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -75,13 +76,26 @@ public class RegisterActivity extends AppCompatActivity {
                                 finish();
                             }else if(!(strEmail.contains("@")&&strEmail.contains("."))){
                             Toast.makeText(RegisterActivity.this, "이메일 형식으로 수정하세요.", Toast.LENGTH_SHORT).show();
-                        }else if (!(strPwd.equals(strPwd2))) {
+                                TextView emailText =findViewById(R.id.et_emailtext);
+                                emailText.setTextColor(0xAA1e6de0);//파랑색
+                                emailText.setText("이메일 형식으로 수정하세요.");
+                            }else if (!(strPwd.equals(strPwd2))) {
                             Toast.makeText(RegisterActivity.this, "비밀번호가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();
-                        } else if(strPwd.length()<7){
+                            TextView pwdText=findViewById(R.id.et_pwdcheck);
+                            pwdText.setTextColor(0xAA1e6de0);//파랑색
+                            pwdText.setText("비밀번호가 일치 하지 않습니다.");
+
+                            } else if(strPwd.length()<7){
                             Toast.makeText(RegisterActivity.this, "비밀번호 길이가 7보다 작습니다.", Toast.LENGTH_SHORT).show();
+                                TextView pwdText=findViewById(R.id.et_pwdcheck);
+                                pwdText.setTextColor(0xAAef484a);//빨강색
+                                pwdText.setText("비밀번호 길이가 7보다 작습니다.");
+
                         }else {
                                 Toast.makeText(RegisterActivity.this, "이미 있는 이메일입니다.", Toast.LENGTH_SHORT).show();
-
+                                TextView emailText =findViewById(R.id.et_emailtext);
+                                emailText.setTextColor(0xAAef484a);//빨강색
+                                emailText.setText("이미 있는 이메일입니다.");
                             }
                         }
 
