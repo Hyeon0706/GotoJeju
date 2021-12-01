@@ -8,9 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
-import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.geometry.LatLngBounds;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -22,7 +22,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 
-public class SubActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
@@ -30,11 +30,10 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
-        Toast.makeText(getApplicationContext(),"지도로 보기 화면으로 이동!",Toast.LENGTH_LONG).show();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.subactivity_main);
+        setContentView(R.layout.mapactivity_main);
 
         MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -62,9 +61,9 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         this.naverMap = naverMap;
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(33.37641210362972,126.53860174219157),10);
-        Xmlparser.mapx = 126.53860174219157;
-        Xmlparser.mapy = 33.37641210362972;
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(33.50646625992274,126.49325628820664),12);
+        Xmlparser.mapx = 126.49325628820664; //제주공항 위도, 경도
+        Xmlparser.mapy = 33.50646625992274;
 
         naverMap.setCameraPosition(cameraPosition);
         naverMap.setLocationSource(locationSource);
@@ -73,10 +72,12 @@ public class SubActivity extends AppCompatActivity implements OnMapReadyCallback
 
         naverMap.addOnCameraChangeListener(this);
         naverMap.addOnCameraIdleListener(this);
+        naverMap.setExtent(new LatLngBounds(new LatLng(32.998197262657335 , 125.90787494613036), new LatLng( 33.78626662360304 , 127.22933090668839))); // 제주도 영역제한
+
+        naverMap.setMinZoom(11.0);
+        naverMap.setMaxZoom(18.0);
 
         setUpMap();
-
-
     }
 
     @Override
