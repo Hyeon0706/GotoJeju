@@ -110,7 +110,8 @@ public class Xmlparser extends Thread {
 
 
     private String getURLParam(String search){
-        String url = URL + "ServiceKey=" + KEY + "&numOfRows=50&pageNo=1&MobileOS=AND&MobileApp=gotojeju&arrange=A&contentTypeId=12" + "&mapX=" + mapx + "&mapY=" + mapy + "&radius=" + radius + "&listYN=Y";
+        String url = URL + "ServiceKey=" + KEY + "&numOfRows=50&pageNo=1&MobileOS=AND&MobileApp=gotojeju&arrange=A&contentTypeId=12"
+                + "&mapX=" + mapx + "&mapY=" + mapy + "&radius=" + radius + "&listYN=Y";
 
         return url;
     }
