@@ -9,6 +9,14 @@ import java.util.ArrayList;
 
 public class Xmlparser extends Thread {
 
+    public final static String URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?";
+    public final static String KEY = "6b%2B3xqOgMamq%2BI5CbJ8EXohcSDrrum2lhplZwGlwJqH1qqXCvPQOmiFptqaI2MAxU3DFu%2Bhl%2FbAXp5ZW3nPYmg%3D%3D";
+    public static double mapx;
+    public static double mapy;
+    public static int radius = 5000;
+
+
+
     public Xmlparser() {
         try {
             apiParserSearch();
@@ -34,8 +42,8 @@ public class Xmlparser extends Thread {
 
         ArrayList<Touristdestination> list = new ArrayList<Touristdestination>();
 
-        String mapx = null, mapy= null;
-        boolean braclility_mapx = false, braclility_mapy = false;
+        String mapx = null, mapy= null, title = null, addr = null, tel = null, firstimage = null;
+        boolean braclility_mapx = false, braclility_mapy = false, braclility_title = false, braclility_addr = false, braclility_tel = false, braclility_firstimage = false;
 
         while (event_type != XmlPullParser.END_DOCUMENT) {
             if (event_type == XmlPullParser.START_TAG) {
@@ -46,7 +54,18 @@ public class Xmlparser extends Thread {
                 if (tag.equals("mapy")){
                     braclility_mapy = true;
                 }
-
+                if (tag.equals("title")){
+                    braclility_title = true;
+                }
+                if (tag.equals("addr1")){
+                    braclility_addr = true;
+                }
+                if (tag.equals("tel")){
+                    braclility_tel = true;
+                }
+                if (tag.equals("firstimage")){
+                    braclility_firstimage = true;
+                }
             } else if (event_type == XmlPullParser.TEXT) {
                 if(braclility_mapx == true){
                     mapx = xpp.getText();
@@ -54,7 +73,21 @@ public class Xmlparser extends Thread {
                 }else if(braclility_mapy == true){
                     mapy = xpp.getText();
                     braclility_mapy = false;
+                }else if(braclility_title == true){
+                    title = xpp.getText();
+                    braclility_title = false;
+                }else if(braclility_addr == true){
+                    addr = xpp.getText();
+                    braclility_addr = false;
+                }else if(braclility_tel == true){
+                    tel = xpp.getText();
+                    braclility_tel = false;
+                }else if(braclility_firstimage == true){
+                    firstimage = xpp.getText();
+                    braclility_firstimage = false;
                 }
+
+
 
             } else if (event_type == XmlPullParser.END_TAG) {
                 tag = xpp.getName();
@@ -62,9 +95,10 @@ public class Xmlparser extends Thread {
                     Touristdestination entity = new Touristdestination();
                     entity.setMapx(Double.valueOf(mapx));
                     entity.setMapy(Double.valueOf(mapy));
-
-
-
+                    entity.setTitle(title);
+                    entity.setAddr(addr);
+                    entity.setTel(tel);
+                    entity.setFirstimage(firstimage);
                     list.add(entity);
                 }
             }
@@ -76,7 +110,8 @@ public class Xmlparser extends Thread {
 
 
     private String getURLParam(String search){
-        String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey=6b%2B3xqOgMamq%2BI5CbJ8EXohcSDrrum2lhplZwGlwJqH1qqXCvPQOmiFptqaI2MAxU3DFu%2Bhl%2FbAXp5ZW3nPYmg%3D%3D&numOfRows=50&MobileApp=Tourist&MobileOS=AND&arrange=B&contentTypeId=12&areaCode=39&listYN=Y";
+        String url = URL + "ServiceKey=" + KEY + "&numOfRows=50&pageNo=1&MobileOS=AND&MobileApp=gotojeju&arrange=A&contentTypeId=12"
+                + "&mapX=" + mapx + "&mapY=" + mapy + "&radius=" + radius + "&listYN=Y";
 
         return url;
     }
