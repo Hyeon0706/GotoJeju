@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".lodgingActivity">
+        <activity android:name=".test1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
