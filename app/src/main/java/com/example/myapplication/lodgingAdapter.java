@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class lodgingAdapter extends RecyclerView.Adapter{
             //별도의 Thread가 필요한데 이를 편하게
             //해주는 Library사용(Glide library)
 
-            Glide.with(context).load(s.getIurl()).into(vh.iv);
+            //Glide.with(context).load(s.getIurl()).into(vh.iv);
 
         }
 
