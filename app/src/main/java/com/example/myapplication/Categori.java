@@ -3,79 +3,87 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class Categori extends AppCompatActivity {
-    ExpandableListView listView;
+    private ExpandableListView explistView;
+    private ExpandAdapter listAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categori);
 
-        ArrayList<Group> DataList = new ArrayList<Group>();
-        listView = (ExpandableListView) findViewById(R.id.exListView);
-        Group temp = new Group("제주시 동부");
-        temp.child.add("제주시내");
-        temp.child.add("조천읍");
-        temp.child.add("구좌읍");
-        temp.child.add("우도면");
-        DataList.add(temp);
-        temp = new Group("제주시 서부");
-        temp.child.add("한경읍");
-        temp.child.add("한림읍");
-        temp.child.add("애월읍");
-        temp.child.add("추자면");
-        DataList.add(temp);
-        temp = new Group("서귀포시 동부");
-        temp.child.add("남원읍");
-        temp.child.add("성산읍");
-        temp.child.add("표선면");
-        DataList.add(temp);
-        temp = new Group("서귀포시 서부");
-        temp.child.add("서귀포시내");
-        temp.child.add("대정읍");
-        temp.child.add("안덕면");
-        DataList.add(temp);
+        explistView = (ExpandableListView)findViewById(R.id.exListView);
 
-        ExpandAdapter adapter = new ExpandAdapter(getApplicationContext(),R.layout.group_row,R.layout.child_row,DataList);
-        listView.setAdapter(adapter);
+        ChildListData();
 
+        listAdapter = new ExpandAdapter(this,listDataHeader,listDataChild);
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        explistView.setAdapter(listAdapter);
+
+        // 차일드 뷰를 눌렀을 경우 이벤트 발생
+        explistView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object vo = (Object)parent.getAdapter().getItem(position);
-                String cList;
-                Toast.makeText(Categori.this, (String)vo, Toast.LENGTH_SHORT).show();
-                if(vo.equals("제주시 서부")){
-                    Intent intent = new Intent(getApplicationContext(),WestJeju.class);
-                    startActivity(intent);
-                }else if(vo.equals("제주시 동부")){
-                    Intent intent = new Intent(getApplicationContext(),EastJeju.class);
-                    startActivity(intent);
-                }else if(vo.equals("서귀포시 서부")){
-                    Intent intent = new Intent(getApplicationContext(),WestSeo.class);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(getApplicationContext(),EastSeo.class);
-                    startActivity(intent);
-                }
-
-
-
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getApplicationContext(), TDListActivity.class);
+                intent.putExtra("local",listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
+                startActivity(intent);
+                return false;
             }
-        });*/
+        });
+
     }
+    private void ChildListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
+        // 그룹 생성
+        listDataHeader.add("제주시 동부");
+        listDataHeader.add("제주시 서부");
+        listDataHeader.add("서귀포시 동부");
+        listDataHeader.add("서귀포시 서부");
 
+        // 그룹 내 차일드 뷰 생성
+        List<String> eastJeju = new ArrayList<String>();
+        eastJeju.add("제주시내");
+        eastJeju.add("조천읍");
+        eastJeju.add("구좌읍");
+        eastJeju.add("우도면");
+
+        List<String> westJeju = new ArrayList<String>();
+        westJeju.add("한경면");
+        westJeju.add("한림읍");
+        westJeju.add("애월읍");
+        westJeju.add("추자면");
+
+        List<String> eastSeo = new ArrayList<String>();
+        eastSeo.add("남원읍");
+        eastSeo.add("성산읍");
+        eastSeo.add("표선면");
+
+        List<String> westSeo = new ArrayList<String>();
+        westSeo.add("서귀포시내");
+        westSeo.add("대정읍");
+        westSeo.add("안덕면");
+
+        //데이터 적용.
+        listDataChild.put(listDataHeader.get(0), eastJeju);
+        listDataChild.put(listDataHeader.get(1), westJeju);
+        listDataChild.put(listDataHeader.get(2), eastSeo);
+        listDataChild.put(listDataHeader.get(3), westSeo);
+    }
 }
 

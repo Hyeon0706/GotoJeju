@@ -15,11 +15,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class lodgingAdapter extends RecyclerView.Adapter{
-    ArrayList<lodgingSingleItem> List;
+public class tdAdapter extends RecyclerView.Adapter{
+    ArrayList<tdSingleitem> List;
     Context context;
 
-    public lodgingAdapter(ArrayList<lodgingSingleItem> List, Context context) {
+    public tdAdapter(ArrayList<tdSingleitem> List, Context context) {
         this.List = List;
         this.context = context;
     }
@@ -28,18 +28,18 @@ public class lodgingAdapter extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView= LayoutInflater.from(context).inflate(R.layout.lodghin_single_item,parent,false);
+        View itemView= LayoutInflater.from(context).inflate(R.layout.td_single_item,parent,false);
 
-        VH vh= new VH(itemView);
+        tdAdapter.VH vh= new tdAdapter.VH(itemView);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        VH vh= (VH)holder;
+        tdAdapter.VH vh= (tdAdapter.VH)holder;
 
         //현재번째(position) 아이템 얻어오기
-        lodgingSingleItem s= List.get(position);
+        tdSingleitem s= List.get(position);
         vh.tvTitle.setText(s.getTitle());
         vh.tvAddr.setText(s.getAddr());
         vh.tvPnum.setText(s.getpNum());

@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
-import android.provider.ContactsContract;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,92 +9,127 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-/**
- * Created by JSY on 2016-02-04.
- */
 public class ExpandAdapter extends BaseExpandableListAdapter {
-    private Context context;
-    private int groupLayout = 0;
-    private int chlidLayout = 0;
-    private ArrayList<Group> DataList;
-    private LayoutInflater myinf = null;
 
-    public ExpandAdapter(Context context,int groupLay,int chlidLay,ArrayList<Group> DataList){
-        this.DataList = DataList;
-        this.groupLayout = groupLay;
-        this.chlidLayout = chlidLay;
-        this.context = context;
-        this.myinf = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private Context _context;
+    private List<String> _listDataHeader; // header titles
+    // child data in format of header title, child title
+    private HashMap<String, List<String>> _listDataChild;
+    private ViewHolder viewHolder = null;
+
+    public ExpandAdapter(Context context, List<String> listDataHeader,
+                                 HashMap<String, List<String>> listChildData) {
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
+    //차일드 뷰 반환
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        if(convertView == null){
-            convertView = myinf.inflate(this.groupLayout, parent, false);
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .get(childPosititon);
+    }
+
+
+    //차일드 뷰 ID 반환
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    //차일드 뷰 생성(각 차일드 뷰의 (ROW)
+    @Override
+    public View getChildView(int groupPosition, final int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+
+        final String childText = (String) getChild(groupPosition, childPosition);
+
+        if (convertView == null) {
+
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.child_row, null);
         }
-        TextView groupName = (TextView)convertView.findViewById(R.id.groupName);
-        groupName.setText(DataList.get(groupPosition).groupName);
+
+        TextView txtListChild = (TextView) convertView
+                .findViewById(R.id.childName);
+
+        txtListChild.setText(childText);
+
         return convertView;
     }
 
+    //차일드 뷰의 사이즈 반환
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        if(convertView == null){
-            convertView = myinf.inflate(this.chlidLayout, parent, false);
+    public int getChildrenCount(int groupPosition) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                .size();
+    }
+
+    //그룹 포지션 반환
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this._listDataHeader.get(groupPosition);
+    }
+
+    //그룹 사이즈를 반환
+    @Override
+    public int getGroupCount() {
+        return this._listDataHeader.size();
+    }
+
+    //그룹 ID를 반환
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    //그룹 뷰 생성(그룹 각 뷰의 ROW)
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        String headerTitle = (String) getGroup(groupPosition);
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.group_row, null);
         }
-        TextView childName = (TextView)convertView.findViewById(R.id.childName);
-        childName.setText(DataList.get(groupPosition).child.get(childPosition));
+        else{
+            viewHolder = (ViewHolder)convertView.getTag();
+        }
+        //그룹을 펼칠 때 또는 닫을 때 아이콘 변경
+        /*if(isExpanded){
+            viewHolder.iv_image.setBackgroundColor(Color.GREEN);
+        }else{
+            viewHolder.iv_image.setBackgroundColor(Color.WHITE);
+        }*/
+
+        TextView lblListHeader = (TextView) convertView
+                .findViewById(R.id.groupName);
+        lblListHeader.setTypeface(null, Typeface.BOLD);
+        lblListHeader.setText(headerTitle);
+
         return convertView;
     }
+
     @Override
     public boolean hasStableIds() {
-        // TODO Auto-generated method stub
-        return true;
+        return false;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        // TODO Auto-generated method stub
         return true;
     }
-    @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        // TODO Auto-generated method stub
-        return DataList.get(groupPosition).child.get(childPosition);
-    }
 
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        // TODO Auto-generated method stub
-        return childPosition;
-    }
-
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        // TODO Auto-generated method stub
-        return DataList.get(groupPosition).child.size();
-    }
-
-    @Override
-    public Group getGroup(int groupPosition) {
-        // TODO Auto-generated method stub
-        return DataList.get(groupPosition);
-    }
-
-    @Override
-    public int getGroupCount() {
-        // TODO Auto-generated method stub
-        return DataList.size();
-    }
-
-    @Override
-    public long getGroupId(int groupPosition) {
-        // TODO Auto-generated method stub
-        return groupPosition;
+    //뷰홀더 클래스 생
+    class ViewHolder {
+        public ImageView iv_image;
     }
 
 }

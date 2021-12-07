@@ -7,11 +7,19 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="관광지 이름"
+        android:textSize="30sp"
+        android:textAllCaps="false" />
+
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="숙소 목록 불러오기"
+        android:text="관광지 목록 불러오기"
         android:textAllCaps="false" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

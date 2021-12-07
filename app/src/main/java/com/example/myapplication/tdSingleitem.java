@@ -1,15 +1,13 @@
 package com.example.myapplication;
 
-import java.util.ArrayList;
-
-public class singleItem {
+public class tdSingleitem {
     private String title;
     private String addr;
     private String pNum;
     private String Iurl;
-    public singleItem() {
+    public tdSingleitem() {
     }
-    public singleItem(String title,String addr,String pNum,String Iurl){
+    public tdSingleitem(String title, String addr, String pNum, String Iurl){
         this.title=title;
         this.addr=addr;
         this.pNum=pNum;
