@@ -92,9 +92,9 @@ public class tdAdapter extends RecyclerView.Adapter{
                     Toast myToast = Toast.makeText(view.getContext(), conId, Toast.LENGTH_SHORT);
                     myToast.show();
 
-                    /*Intent intent = new Intent(context,test1.class);
+                    Intent intent = new Intent(context,test1.class);
                     intent.putExtra("conId",conId);
-                    context.startActivity(intent);*/
+                    context.startActivity(intent);
                 }
             });
 
