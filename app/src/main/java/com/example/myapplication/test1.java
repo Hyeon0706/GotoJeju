@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import java.net.URLEncoder;
 import com.bumptech.glide.Glide;
 
 public class test1 extends Activity {
-    TextView title,pNum,addr;
+    TextView title,pNum,addr,ovview;
     ImageView image;
     EditText in;
     @Override
@@ -35,6 +36,7 @@ public class test1 extends Activity {
         title = (TextView)findViewById(R.id.tvTitle);
         pNum = (TextView)findViewById(R.id.tvPnum);
         addr = (TextView)findViewById(R.id.tvAddr);
+        ovview = (TextView)findViewById(R.id.tvOvviwe);
         image = (ImageView)findViewById(R.id.imageView);
 
 
@@ -47,9 +49,11 @@ public class test1 extends Activity {
                     public void run() {
                         StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언;
                         String input = in.getText().toString();
-                        String key = URLEncoder.encode(input);
+                        Intent intent = getIntent();
 
-                        String queryUrl="http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
+                        String conId = intent.getExtras().getString("conId");
+
+                        String queryUrl="http://http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 
                                 + "serviceKey=" + "Mnd5loDKrv7cw39tujxqlBxVsNrPl2lI5cPZ42QmJTzRIRtOibD66%2BpLD0MRFtCJDoCcIqvzb4V29lnnidqkrA%3D%3D"
 
@@ -57,10 +61,10 @@ public class test1 extends Activity {
                                 +"&MobileOS=" + "AND"
                                 +"&pageNo=" + "1"
                                 +"&numOfRows=" + "1"
+                                +"&contentId=" + conId
                                 +"&arrange=" + "A"
                                 +"&listYN=" + "Y"
-                                +"&contentTypeId=" + "12"
-                                +"&keyword=" + key;
+                                +"&contentTypeId=" + "12";
                         //itemName 태그로 검색을 하기 위함
                         try {
                             URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
@@ -74,7 +78,6 @@ public class test1 extends Activity {
 
                             xpp.next();
                             int eventType = xpp.getEventType();
-                            singleItem a = null;
                             while (eventType != XmlPullParser.END_DOCUMENT) {  // 문서의 끝일때는 while문 종료
                                 switch (eventType) {
                                     case XmlPullParser.START_DOCUMENT:
@@ -84,23 +87,26 @@ public class test1 extends Activity {
                                     case XmlPullParser.START_TAG:  // 시작 태그로 데이터를 얻기위함
                                         tag = xpp.getName();//태그 이름 얻어오기
 
-                                        if (tag.equals("item"))
-                                            a = new singleItem();
-                                        else if (tag.equals("title")) {
+                                        if (tag.equals("item")){
+                                        }else if (tag.equals("title")) {
                                             xpp.next();
-                                            if (a != null) title.setText(xpp.getText());
+                                            title.setText(xpp.getText());
                                         } else if (tag.equals("tel")) {
 
                                             xpp.next();
-                                            if (a != null) pNum.setText(xpp.getText());
+                                            pNum.setText(xpp.getText());
                                         } else if (tag.equals("addr1")) {
 
                                             xpp.next();
-                                            if (a != null) addr.setText(xpp.getText());
+                                            addr.setText(xpp.getText());
+                                        } else if (tag.equals("overview")) {
+
+                                            xpp.next();
+                                            ovview.setText(xpp.getText());
                                         }else if (tag.equals("firstimage")) {
 
                                             xpp.next();
-                                            if (a != null) Glide.with(getApplicationContext()).load(xpp.getText()).into(image);
+                                            Glide.with(getApplicationContext()).load(xpp.getText()).into(image);
                                         }
                                         break;
 
@@ -111,7 +117,7 @@ public class test1 extends Activity {
                                         tag = xpp.getName(); //테그 이름 얻어오기
 
                                         if (tag.equals("item")) {
-                                            a = null;
+
                                         }
                                         break;
                                 }
