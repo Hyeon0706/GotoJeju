@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +87,14 @@ public class tdAdapter extends RecyclerView.Adapter{
                     String entpName= List.get(getLayoutPosition()).getAddr();
                     String itemSeq= List.get(getLayoutPosition()).getpNum();
                     String imgUrl= List.get(getLayoutPosition()).getIurl();
+                    String conId= List.get(getLayoutPosition()).getConId();
+
+                    Toast myToast = Toast.makeText(view.getContext(), conId, Toast.LENGTH_SHORT);
+                    myToast.show();
+
+                    /*Intent intent = new Intent(context,test1.class);
+                    intent.putExtra("conId",conId);
+                    context.startActivity(intent);*/
                 }
             });
 

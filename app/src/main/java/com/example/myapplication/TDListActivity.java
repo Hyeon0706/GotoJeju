@@ -115,6 +115,10 @@ public class TDListActivity extends Activity {
 
                                             xpp.next();
                                             if (a != null) a.setIurl(xpp.getText());
+                                        } else if (tag.equals("contentid")) {
+
+                                            xpp.next();
+                                            if (a != null) a.setConId(xpp.getText());
                                         }
                                         break;
 
