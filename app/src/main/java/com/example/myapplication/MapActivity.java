@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 
@@ -9,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.naver.maps.geometry.LatLng;
@@ -35,6 +38,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private NaverMap naverMap;
     private boolean isCameraAnimated = false;
     private InfoWindow infoWindow;
+    private ImageButton back;
+    private ImageButton categori;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -49,7 +54,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
+        back = findViewById(R.id.back);
+        categori = findViewById(R.id.moveCategori);
+        //뒤로가기 버튼
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        categori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, Categori.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -99,10 +121,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 View view = View.inflate(MapActivity.this, R.layout.view_info_window,null);
                 ((TextView) view.findViewById(R.id.txttitle)).setText(entity.getTitle());
                 ((TextView) view.findViewById(R.id.txtaddr)).setText(entity.getAddr());
-                ((TextView) view.findViewById(R.id.txttel)).setText(entity.getTel());
                 ImageView imagePoint = (ImageView) view.findViewById(R.id.imagepoint);
                 Glide.with(view).load(entity.getFirstimage()).into(imagePoint);
-
+                infoWindow.setOnClickListener(new Overlay.OnClickListener()
+                {
+                    @Override
+                    public boolean onClick(@NonNull Overlay overlay)
+                    {
+                        Toast.makeText(MapActivity.this, "정보창 클릭됨", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
 
 
                 return view;

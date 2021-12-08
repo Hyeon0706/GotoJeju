@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +19,34 @@ public class Categori extends AppCompatActivity {
     private ExpandAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+    private ImageButton back;
+    private ImageButton map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categori);
+
+        back = findViewById(R.id.back);
+        map = findViewById(R.id.moveMap);
+        //뒤로가기 버튼
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Categori.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Categori.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         explistView = (ExpandableListView)findViewById(R.id.exListView);
 
