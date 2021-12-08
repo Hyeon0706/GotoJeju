@@ -5,13 +5,15 @@ public class tdSingleitem {
     private String addr;
     private String pNum;
     private String Iurl;
+    private String conId;
     public tdSingleitem() {
     }
-    public tdSingleitem(String title, String addr, String pNum, String Iurl){
+    public tdSingleitem(String title, String addr, String pNum, String Iurl, String conId){
         this.title=title;
         this.addr=addr;
         this.pNum=pNum;
         this.Iurl=Iurl;
+        this.conId=conId;
     }
 
 
@@ -48,5 +50,13 @@ public class tdSingleitem {
     public void setIurl(String Iurl){
 
         this.Iurl=Iurl;
+    }
+    public String getConId(){
+
+        return conId;
+    }
+    public void setConId(String conId){
+
+        this.conId=conId;
     }
 }
