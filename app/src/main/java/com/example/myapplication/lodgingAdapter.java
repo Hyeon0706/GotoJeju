@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 //import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class lodgingAdapter extends RecyclerView.Adapter{
@@ -43,19 +45,8 @@ public class lodgingAdapter extends RecyclerView.Adapter{
         vh.tvTitle.setText(s.getTitle());
         vh.tvAddr.setText(s.getAddr());
         vh.tvPnum.setText(s.getpNum());
+        Glide.with(context).load(s.getIurl()).fallback(R.drawable.no_image).into(vh.iv);
 
-        //이미지는 없을 수도 있음.
-        if(s.getIurl()==null){
-            vh.iv.setVisibility(View.GONE);
-        }else{
-            vh.iv.setVisibility(View.VISIBLE);
-            //네트워크에 있는 이미지를 보여주려면
-            //별도의 Thread가 필요한데 이를 편하게
-            //해주는 Library사용(Glide library)
-
-            //Glide.with(context).load(s.getIurl()).into(vh.iv);
-
-        }
 
     }
 
@@ -77,20 +68,6 @@ public class lodgingAdapter extends RecyclerView.Adapter{
             tvPnum=itemView.findViewById(R.id.phoneNum);
             Linkify.addLinks(tvPnum, Linkify.PHONE_NUMBERS);
             iv=itemView.findViewById(R.id.imageView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    String itemName= List.get(getLayoutPosition()).getTitle();
-                    String entpName= List.get(getLayoutPosition()).getAddr();
-                    String itemSeq= List.get(getLayoutPosition()).getpNum();
-                    String imgUrl= List.get(getLayoutPosition()).getIurl();
-                }
-            });
-
-
-
-
         }
     }
 }
