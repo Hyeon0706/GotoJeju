@@ -3,46 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jangg/AndroidStudioProjects/GotoJeju/app/src/main/res/layout/activity_info.xml" value="0.25" />
+        <entry key="..\:/Users/jangg/AndroidStudioProjects/GotoJeju/app/src/main/res/layout/info.xml" value="0.25" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1824074074074074" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_findPwd.xml" value="0.25" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_findpwd.xml" value="0.22" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_info.xml" value="0.20729166666666668" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_lodging.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_tdlist.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_test.xml" value="0.33" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/activity_userpage.xml" value="0.21" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/categori.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/child_row.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/eastjeju.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/eastseo.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/group_row.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/info.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/list_item.xml" value="0.1" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/lodghin_single_item.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/lodging.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/login.xml" value="0.1" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/mainac.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/mapactivity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/subactivity_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/td_single_item.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/userpage.xml" value="0.20729166666666668" />
-        <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/view_info_window.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/westjeju.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/pc/GotoJeju/app/src/main/res/layout/westseo.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_lodging.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_tdlist.xml" value="0.264" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/categori.xml" value="0.36034732272069464" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/child_row.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/eastjeju.xml" value="0.2" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/eastseo.xml" value="0.11875" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/group_row.xml" value="0.2056159420289855" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/lodghin_single_item.xml" value="0.1" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/login.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/single_item.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/subactivity_main.xml" value="0.11875" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/suvactivity_main.xml" value="0.12604166666666666" />
+        <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/td_single_item.xml" value="0.2" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/westjeju.xml" value="0.11875" />
         <entry key="..\:/Users/pooii/AndroidStudioProjects/MyApplication/app/src/main/res/layout/westseo.xml" value="0.11875" />
-        <entry key="..\:/Users/tjb71/AndroidStudioProjects/GotoJeju/app/src/main/res/layout/subactivity_main.xml" value="0.20471014492753623" />
       </map>
     </option>
   </component>

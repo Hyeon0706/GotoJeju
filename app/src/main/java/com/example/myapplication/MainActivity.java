@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button userpageButton=(Button) findViewById(R.id.btn_userpage);//유저페이지 버튼
+        /*Button userpageButton=(Button) findViewById(R.id.btn_userpage);//유저페이지 버튼
         userpageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UserPage.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         Button imageButton = (Button) findViewById(R.id.btn1);
         imageButton.setOnClickListener(new View.OnClickListener() {

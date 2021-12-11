@@ -28,6 +28,8 @@ public class test1 extends Activity {
     TextView title,pNum,addr,ovview;
     ImageView image;
     EditText in;
+    static String mx;
+    static String my;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +43,9 @@ public class test1 extends Activity {
         ovview = (TextView)findViewById(R.id.tvOvviwe);
         image = (ImageView)findViewById(R.id.imageView);
 
-        /*Intent intent = getIntent();
+        Intent intent = getIntent();
 
         String conId = intent.getExtras().getString("conId");
-        int x = Integer.parseInt(conId);*/
-
-
 
 
         Button button2 = (Button) findViewById(R.id.button2);
@@ -59,6 +58,8 @@ public class test1 extends Activity {
                         StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언;
                         String input = in.getText().toString();
 
+                        String Iurl;
+
 
 
                         String queryUrl="http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
@@ -68,7 +69,7 @@ public class test1 extends Activity {
                                 +"&pageNo=" + "1"
                                 +"&MobileOS=" + "AND"
                                 +"&MobileApp=" + "AppTest"
-                                +"&contentId=" + input
+                                +"&contentId=" + conId
                                 +"&contentTypeId=" + "12"
                                 +"&defaultYN=" + "Y"
                                 +"&firstImageYN=" + "Y"
@@ -116,10 +117,21 @@ public class test1 extends Activity {
 
                                             xpp.next();
                                             if (a != null) ovview.setText(xpp.getText());
+                                        }else if (tag.equals("mapy")) {
+
+                                            xpp.next();
+                                            my = xpp.getText();
+                                        }else if (tag.equals("mapx")) {
+
+                                            xpp.next();
+                                            mx = xpp.getText();
                                         }else if (tag.equals("firstimage")) {
 
                                             xpp.next();
-                                            if (a != null) Glide.with(getApplicationContext()).load(xpp.getText()).into(image);
+                                            if (a != null) {
+                                                Iurl = xpp.getText();
+                                                Glide.with(view).load(Iurl).fallback(R.drawable.no_image).into(image);
+                                            }
                                         }
                                         break;
 
@@ -148,6 +160,16 @@ public class test1 extends Activity {
             }
 
 
+        });
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),lodgingActivity.class);
+                i.putExtra("mapX",mx);
+                i.putExtra("mapY",my);
+                startActivity(i);
+            }
         });
     }
 }

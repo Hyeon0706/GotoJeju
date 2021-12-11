@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,10 +27,19 @@ public class lodgingActivity extends Activity {
     SwipeRefreshLayout refreshLayout;
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lodging);
+        Intent intent = getIntent();
+        String getmx = intent.getExtras().getString("mapX");
+        String getmy = intent.getExtras().getString("mapY");
+        double getMx = Double.parseDouble(getmx);
+        double getMy = Double.parseDouble(getmy);
 
         recyclerView = findViewById(R.id.searchRecycler); // 변수연결
         refreshLayout= findViewById(R.id.layout_swipe);
@@ -126,7 +136,7 @@ public class lodgingActivity extends Activity {
                                         tag = xpp.getName(); //테그 이름 얻어오기
 
                                         if (tag.equals("item")) {
-                                            if(distance(my,mx,33.2521787368,126.6231006558)<=5){ //여기 숫자 좌표에 관광지 좌표 띄우면 됨
+                                            if(distance(my,mx,getMy,getMx)<=5){ //여기 숫자 좌표에 관광지 좌표 띄우면 됨
                                                 singleItems.add(a);
                                                 a = null;
                                             }

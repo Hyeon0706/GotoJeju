@@ -45,19 +45,7 @@ public class tdAdapter extends RecyclerView.Adapter{
         vh.tvTitle.setText(s.getTitle());
         vh.tvAddr.setText(s.getAddr());
         vh.tvPnum.setText(s.getpNum());
-
-        //이미지는 없을 수도 있음.
-        if(s.getIurl()==null){
-            vh.iv.setVisibility(View.GONE);
-        }else{
-            vh.iv.setVisibility(View.VISIBLE);
-            //네트워크에 있는 이미지를 보여주려면
-            //별도의 Thread가 필요한데 이를 편하게
-            //해주는 Library사용(Glide library)
-
-            Glide.with(context).load(s.getIurl()).into(vh.iv);
-
-        }
+        Glide.with(context).load(s.getIurl()).fallback(R.drawable.no_image).into(vh.iv);
 
     }
 
@@ -83,10 +71,6 @@ public class tdAdapter extends RecyclerView.Adapter{
                 @Override
                 public void onClick(View view) {
 
-                    String itemName= List.get(getLayoutPosition()).getTitle();
-                    String entpName= List.get(getLayoutPosition()).getAddr();
-                    String itemSeq= List.get(getLayoutPosition()).getpNum();
-                    String imgUrl= List.get(getLayoutPosition()).getIurl();
                     String conId= List.get(getLayoutPosition()).getConId();
 
                     Toast myToast = Toast.makeText(view.getContext(), conId, Toast.LENGTH_SHORT);
