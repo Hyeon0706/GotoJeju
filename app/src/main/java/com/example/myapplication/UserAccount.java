@@ -8,7 +8,7 @@ public class UserAccount {
     private String password;// 페스워드
     private String name;
     private String phoneNum;
-
+    private String bookmark;
 
     public UserAccount(){ } //파이어베이스 에서는 빈생성자만들어야함
 
@@ -56,4 +56,13 @@ public class UserAccount {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+    public String getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(String bookmark) {
+        this.bookmark = bookmark;
+    }
+
 }
