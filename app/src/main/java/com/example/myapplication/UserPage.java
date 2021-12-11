@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 
 public class UserPage extends AppCompatActivity {
+
     private FirebaseAuth mFirebaseAuth;     //파이어베이스 인증
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 로그인 유저정보
 
