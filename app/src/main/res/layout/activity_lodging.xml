@@ -7,12 +7,24 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/textview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="숙소 목록 불러오기"
+        android:gravity="center"
+        android:text="5KM 이내 숙박업소"
+        android:textSize="15sp"
         android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="화면을 아래로 스와이프 해주세요!!"
+        android:textSize="25dp"
+        android:textColor="#FF8000"/>
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -26,6 +38,7 @@
             android:padding="8dp"
             android:visibility="visible"
             ></androidx.recyclerview.widget.RecyclerView>
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
