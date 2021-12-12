@@ -8,13 +8,14 @@ public class Touristdestination {
     private String addr; // 주소
     private String tel; // 전화번호
     private String firstimage; // 이미지
+    private String contentid; //
 
     public Touristdestination(){
         super();
     }
 
 
-    public Touristdestination(double mapx, double mapy, String title,  String addr, String tel, String firstimage)
+    public Touristdestination(double mapx, double mapy, String title,  String addr, String tel, String firstimage, String contentid)
     {
         this.mapx = mapx;
         this.mapy = mapy;
@@ -22,6 +23,7 @@ public class Touristdestination {
         this.addr = addr;
         this.tel = tel;
         this.firstimage = firstimage;
+        this.contentid = contentid;
     }
 
     public double getMapx() {
@@ -64,6 +66,13 @@ public class Touristdestination {
     }
     public void setFirstimage(String firstimage) {
         this.firstimage = firstimage;
+    }
+
+    public String getcontentid() {
+        return contentid;
+    }
+    public void setcontentid(String contentid) {
+        this.contentid = contentid;
     }
 }
 

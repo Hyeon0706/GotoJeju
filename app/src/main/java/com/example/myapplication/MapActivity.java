@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
 import com.naver.maps.geometry.LatLng;
@@ -30,7 +31,13 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
-import java.util.Map;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+
+
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener, Overlay.OnClickListener, NaverMap.OnMapClickListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -48,6 +55,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mapactivity_main);
 
+
+
+
         MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -64,7 +74,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
-
+        //목록으로 보기 이동 버튼
         categori.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,23 +100,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
+    public void onMapReady(@NonNull NaverMap naverMap) { //지도가 준비된 후
         this.naverMap = naverMap;
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(33.50646625992274,126.49325628820664),12);
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(33.50646625992274,126.49325628820664),12); // 지도의 시작좌표, 줌레벨
         Xmlparser.mapx = 126.49325628820664; //제주공항 위도, 경도
         Xmlparser.mapy = 33.50646625992274;
 
-        naverMap.setCameraPosition(cameraPosition);
+        naverMap.setCameraPosition(cameraPosition); // 시작좌표 지정
         naverMap.setLocationSource(locationSource);
         UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setLocationButtonEnabled(true);
+        uiSettings.setLocationButtonEnabled(true); // 현재위치 좌표 이동 버튼 활성화
         naverMap.setOnMapClickListener(this);
 
         naverMap.addOnCameraChangeListener(this);
         naverMap.addOnCameraIdleListener(this);
         naverMap.setExtent(new LatLngBounds(new LatLng(32.998197262657335 , 125.90787494613036), new LatLng( 33.78626662360304 , 127.22933090668839))); // 제주도 영역제한
 
-        naverMap.setMinZoom(11.0);
+        naverMap.setMinZoom(11.0); //지도의 최소, 최대줌 조정
         naverMap.setMaxZoom(18.0);
 
         setUpMap();
@@ -117,18 +127,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             protected View getContentView(@NonNull InfoWindow infoWindow) {
                 Marker marker = infoWindow.getMarker();
-                Touristdestination entity = (Touristdestination) marker.getTag();
+                Touristdestination entity = (Touristdestination) marker.getTag(); // 마커의 Tag값을 얻어와 해당하는 정보창을 띄우기 위함
                 View view = View.inflate(MapActivity.this, R.layout.view_info_window,null);
-                ((TextView) view.findViewById(R.id.txttitle)).setText(entity.getTitle());
-                ((TextView) view.findViewById(R.id.txtaddr)).setText(entity.getAddr());
+                ((TextView) view.findViewById(R.id.txttitle)).setText(entity.getTitle()); //관광지 이름을 표시
+                ((TextView) view.findViewById(R.id.txtaddr)).setText(entity.getAddr()); //관광지 주소를 표시
                 ImageView imagePoint = (ImageView) view.findViewById(R.id.imagepoint);
-                Glide.with(view).load(entity.getFirstimage()).into(imagePoint);
+                if(entity.getFirstimage() == null){
+                    imagePoint.setImageResource(R.drawable.no_image);
+                }else{
+                    Glide.with(view).load(entity.getFirstimage()).into(imagePoint);// 관광지 이미지를 표시. Glide 라이브러리 사용
+                }
+
+
+
+
+
                 infoWindow.setOnClickListener(new Overlay.OnClickListener()
                 {
                     @Override
                     public boolean onClick(@NonNull Overlay overlay)
                     {
-                        Toast.makeText(MapActivity.this, "정보창 클릭됨", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),test1.class);
+                        intent.putExtra("conId",entity.getcontentid());
+                        startActivity(intent);
+
                         return false;
                     }
                 });
@@ -150,12 +172,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             LatLng mapCenter = naverMap.getCameraPosition().target;
             Xmlparser.mapx = mapCenter.longitude;
             Xmlparser.mapy = mapCenter.latitude;
-            setUpMap();
+            setUpMap(); // 지도의 움직임이 멈추면 지도의 중심좌표를 얻어와 마커를 생성
         }
     }
 
     @Override
-    public  boolean onClick(@NonNull Overlay overlay){
+    public  boolean onClick(@NonNull Overlay overlay){ // 마커를 클릭하여 정보창을 출력하고 이미 출력되어있을시, 정보창을 닫음
         if (overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
             if (marker.getInfoWindow() != null) {
@@ -169,13 +191,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
+    public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) { // 지도의 빈 곳을 클릭하여도 정보창을 닫음
         if (infoWindow.getMarker() != null) {
             infoWindow.close();
         }
     }
 
-    private void setUpMap() {
+    private void setUpMap() { // 마커를 생성하기 위함
 
         Xmlparser parser = new Xmlparser();
         ArrayList<Touristdestination> list = new ArrayList<Touristdestination>();
@@ -200,6 +222,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
+
+
 
 }
 
