@@ -13,7 +13,7 @@ public class Xmlparser extends Thread {
     public final static String KEY = "6b%2B3xqOgMamq%2BI5CbJ8EXohcSDrrum2lhplZwGlwJqH1qqXCvPQOmiFptqaI2MAxU3DFu%2Bhl%2FbAXp5ZW3nPYmg%3D%3D";
     public static double mapx;
     public static double mapy;
-    public static int radius = 5000;
+    public static int radius = 5000; //5Km
 
 
 
@@ -42,13 +42,13 @@ public class Xmlparser extends Thread {
 
         ArrayList<Touristdestination> list = new ArrayList<Touristdestination>();
 
-        String mapx = null, mapy= null, title = null, addr = null, tel = null, firstimage = null;
-        boolean braclility_mapx = false, braclility_mapy = false, braclility_title = false, braclility_addr = false, braclility_tel = false, braclility_firstimage = false;
+        String mapx = null, mapy= null, title = null, addr = null, tel = null, firstimage = null, contentid = null;
+        boolean braclility_mapx = false, braclility_mapy = false, braclility_title = false, braclility_addr = false, braclility_tel = false, braclility_firstimage = false, braclility_contentid = false;
 
         while (event_type != XmlPullParser.END_DOCUMENT) {
             if (event_type == XmlPullParser.START_TAG) {
                 tag = xpp.getName();
-                if (tag.equals("mapx")){
+                if (tag.equals("mapx")){ //XML데이터의 해당하는 태그값이 있으면 작동
                     braclility_mapx = true;
                 }
                 if (tag.equals("mapy")){
@@ -66,8 +66,11 @@ public class Xmlparser extends Thread {
                 if (tag.equals("firstimage")){
                     braclility_firstimage = true;
                 }
+                if (tag.equals("contentid")){
+                    braclility_contentid = true;
+                }
             } else if (event_type == XmlPullParser.TEXT) {
-                if(braclility_mapx == true){
+                if(braclility_mapx == true){ //태그값이 있을경우 데이터를 불러와 저장
                     mapx = xpp.getText();
                     braclility_mapx = false;
                 }else if(braclility_mapy == true){
@@ -85,6 +88,9 @@ public class Xmlparser extends Thread {
                 }else if(braclility_firstimage == true){
                     firstimage = xpp.getText();
                     braclility_firstimage = false;
+                }else if(braclility_contentid == true){
+                    contentid = xpp.getText();
+                    braclility_contentid = false;
                 }
 
 
@@ -99,6 +105,7 @@ public class Xmlparser extends Thread {
                     entity.setAddr(addr);
                     entity.setTel(tel);
                     entity.setFirstimage(firstimage);
+                    entity.setcontentid(contentid);
                     list.add(entity);
                 }
             }
@@ -109,7 +116,7 @@ public class Xmlparser extends Thread {
     }
 
 
-    private String getURLParam(String search){
+    private String getURLParam(String search){ // API를 호출받기 위한 URL(위도경도에서 반경 5Km 관광지 정보를 불러옴
         String url = URL + "ServiceKey=" + KEY + "&numOfRows=50&pageNo=1&MobileOS=AND&MobileApp=gotojeju&arrange=A&contentTypeId=12"
                 + "&mapX=" + mapx + "&mapY=" + mapy + "&radius=" + radius + "&listYN=Y";
 

@@ -14,14 +14,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;     //파이어베이스 인증
     private DatabaseReference nDatabaseRef; //실시간 데이터베이스
     private EditText mEtEmail,mEtPwd;       //회원가입 입력필드
+    public static String id,pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
                 //로그인 요청
                 String strEmail =mEtEmail.getText().toString(); //문자열로 입력된 걸 가져옴
                 String strPwd=mEtPwd.getText().toString();
+                id=strEmail;
+                pw=strPwd;
+
                 if(strEmail.equals(""))//팅김 방지
                 {}
                 else{
@@ -51,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             //로그인 성공
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                             Intent intent1 =new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent1);
                 //            finish(); //현재엑티비티 파괴

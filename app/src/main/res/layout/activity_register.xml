@@ -55,7 +55,7 @@
 
         android:layout_marginBottom="12dp"
         android:ems="10"
-        android:hint="성함을 입력하세요"
+        android:hint="닉네임을 입력하세요"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/et_phoneNum"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +89,8 @@
 
     <TextView
         android:id="@+id/et_emailtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="13dp"
 
         app:layout_constraintBottom_toTopOf="@+id/et_pwd"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,8 +99,8 @@
 
     <TextView
         android:id="@+id/et_pwdcheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
         android:layout_marginTop="12dp"
 
 
