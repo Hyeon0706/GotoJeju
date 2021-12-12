@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
         userpageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(getApplicationContext(), UserPage.class);
-                startActivity(intent);*/
-
+                Intent intent = new Intent(getApplicationContext(), UserPage.class);
+                startActivity(intent);
+            }
+        });*/
 
         Button imageButton = (Button) findViewById(R.id.btn1);
         imageButton.setOnClickListener(new View.OnClickListener() {

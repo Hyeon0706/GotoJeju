@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mFirebaseAuth =FirebaseAuth.getInstance();
-        nDatabaseRef= FirebaseDatabase.getInstance().getReference("myapplication");//별칭
+        nDatabaseRef= FirebaseDatabase.getInstance().getReference("UserAccount");//별칭
 
         mEtEmail=findViewById(R.id.et_email);
         mEtPwd=findViewById(R.id.et_pwd);
@@ -101,8 +102,26 @@ public class RegisterActivity extends AppCompatActivity {
                                 account.setName(strName);
                                 account.setPhoneNum(strPhoneNum);
 
+                                //파이어베이스 유저 닉네임 삽입
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(strName)
+                                        .build();
+
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                }
+                                            }
+                                        });
+                                //파이어베이스 유저 닉네임 삽입
+
+
                                 //setValue :database에 insert(삽입)행위
-                                nDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
+                                nDatabaseRef.child(firebaseUser.getUid()).setValue(account);
 
                                 Toast.makeText(RegisterActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
                                 finish();
