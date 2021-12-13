@@ -22,7 +22,8 @@
                 android:gravity="center"
                 android:text="목록으로 보기"
                 android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:fontFamily="@font/bmfont"/>
             <ImageButton
                 android:id="@+id/moveMap"
                 android:layout_width="105dp"
@@ -37,13 +38,6 @@
                 android:src="@drawable/ic_baseline_arrow_back_24" />
         </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="목록으로 보기 화면."
-        android:textSize="20dp"/>
 
     <ExpandableListView
         android:id="@+id/exListView"

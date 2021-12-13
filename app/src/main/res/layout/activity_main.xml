@@ -4,25 +4,63 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/main_image" />
+
+        <TextView
+            android:id="@+id/et_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="14"
+            android:gravity="center"
+            android:hint="제주도 갈래?"
+            android:maxLength="20"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/bmfont"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+        android:id="@+id/btn_userpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF8800"
+        android:fontFamily="@font/bmfont"
+        android:text="user page" />
+
     <TextView
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:gravity="center"
-        android:text="원하는 보기 방식을 선택하세요!"
-        android:textSize="20dp" />
+        android:text="원하는 보기 방식을
+        선택하세요!"
 
-    <Button
-        android:id="@+id/btn_userpage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="userpage" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:backgroundTint="#FF8800"
+        android:textSize="25dp"
+        android:fontFamily="@font/bmfont"
         android:text="목록으로 보기" />
 
     <Button
@@ -30,9 +68,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:backgroundTint="#FF8800"
+        android:textSize="25dp"
+        android:fontFamily="@font/bmfont"
         android:text="지도로 보기" />
 
 
-
+    </LinearLayout>
 
 </LinearLayout>
