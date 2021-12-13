@@ -132,10 +132,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 ((TextView) view.findViewById(R.id.txttitle)).setText(entity.getTitle()); //관광지 이름을 표시
                 ((TextView) view.findViewById(R.id.txtaddr)).setText(entity.getAddr()); //관광지 주소를 표시
                 ImageView imagePoint = (ImageView) view.findViewById(R.id.imagepoint);
-                if(entity.getFirstimage() == null){
-                    imagePoint.setImageResource(R.drawable.no_image);
+                if(entity.getFirstimage() == null){ //데이터에 이미지가 없다면
+                    imagePoint.setImageResource(R.drawable.no_image); //노 이미지를 출력
                 }else{
-                    Glide.with(view).load(entity.getFirstimage()).into(imagePoint);// 관광지 이미지를 표시. Glide 라이브러리 사용
+                    Glide.with(view).load(entity.getFirstimage()).into(imagePoint);// 관광지 이미지를 표시 Glide 라이브러리 사용
                 }
 
 
