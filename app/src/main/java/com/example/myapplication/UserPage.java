@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +53,9 @@ public class UserPage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpage); //연결 중요
+
+        Intent i = getIntent();                                 //이 부분이 콘텐츠ID 받아오는 부분입니다!!
+        String conId = i.getExtras().getString("conId");    //원하시는대로 변경 해도 될 것 같아요!
 
         recyclerView=findViewById(R.id.recyclerview);//아디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
