@@ -172,7 +172,7 @@ public class test1 extends Activity {
         });
 
         Button button4 = (Button) findViewById(R.id.button4);   //이 버튼 누르면 찜하기 페이지로 넘어가면서
-        button3.setOnClickListener(new View.OnClickListener() { //콘텐츠 ID넘깁니다!
+        button4.setOnClickListener(new View.OnClickListener() { //콘텐츠 ID넘깁니다!
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),UserPage.class);

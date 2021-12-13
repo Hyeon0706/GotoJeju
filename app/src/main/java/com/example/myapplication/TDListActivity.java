@@ -1,11 +1,15 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,17 +30,26 @@ public class TDListActivity extends Activity {
     tdAdapter adapter;
     SwipeRefreshLayout refreshLayout;
     TextView g;
+    ImageButton btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tdlist);
 
-        TextView tv1 = (TextView) findViewById(R.id.textview1);
+        TextView tv1 = (TextView) findViewById(R.id.textView);
 
         Intent intent = getIntent(); /*데이터 수신*/
-
-        String name = intent.getExtras().getString("local"); /*String형*/
+        String name = intent.getExtras().getString("local");
         tv1.setText(name);
+        btn = (ImageButton) findViewById(R.id.back);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TDListActivity.this, Categori.class);
+                startActivity(intent);
+            }
+        });
 
         g = findViewById(R.id.guideline);
         recyclerView = findViewById(R.id.searchRecycler); // 변수연결
@@ -150,7 +163,7 @@ public class TDListActivity extends Activity {
             }
         }).start();
     }
-    private static String checkLocal(String address) { //거리 계산
+    private static String checkLocal(String address) {
         String str = address;
         String[] arr = str.split(" ");
         String local = arr[2];

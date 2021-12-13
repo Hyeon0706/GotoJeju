@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ public class lodgingActivity extends Activity {
     lodgingAdapter adapter;
     SwipeRefreshLayout refreshLayout;
     TextView g;
+    ImageButton btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,14 @@ public class lodgingActivity extends Activity {
         String getmy = intent.getExtras().getString("mapY");
         double getMx = Double.parseDouble(getmx);
         double getMy = Double.parseDouble(getmy);
+        btn = (ImageButton) findViewById(R.id.back);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(lodgingActivity.this, test1.class);
+                startActivity(intent);
+            }
+        });
 
         g = findViewById(R.id.guideline);
         recyclerView = findViewById(R.id.searchRecycler); // 변수연결
