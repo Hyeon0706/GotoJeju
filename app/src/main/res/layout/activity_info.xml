@@ -32,6 +32,15 @@
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="248dp" />
 
+    <TextView
+        android:id="@+id/imageurl"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:gravity="center_horizontal"
+        android:text="사진 url"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="248dp" />
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -88,6 +97,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="근처 숙박업소 확인하기"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="488dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="찜하기"
         tools:layout_editor_absoluteX="32dp"
         tools:layout_editor_absoluteY="488dp" />
 
