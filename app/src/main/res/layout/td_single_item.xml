@@ -26,7 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="관광지 이름"
-            android:textSize="20sp" />
+            android:textStyle="bold"
+            android:textColor="#FFA500"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/address"

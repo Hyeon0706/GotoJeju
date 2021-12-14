@@ -119,19 +119,40 @@ public class weatherActivity extends Activity {
                                 else if (tag.equals("category")) {
                                     xpp.next();
                                     category = xpp.getText();
-                                    if (a != null) a.setCategory(xpp.getText());
                                 } else if (tag.equals("fcstTime")) {
 
                                     xpp.next();
-                                    if (a != null) a.setFcstTime(xpp.getText());
+                                    if (a != null) a.setFcstTime("예보 시간 : " + xpp.getText() + "시");
                                 } else if (tag.equals("fcstDate")) {
 
                                     xpp.next();
-                                    if (a != null) a.setFcstDate(xpp.getText());
+                                    if (a != null) a.setFcstDate("예보 날짜 : " + xpp.getText());
                                 } else if (tag.equals("fcstValue")) {
 
                                     xpp.next();
-                                    if (a != null) a.setFcstValue(xpp.getText());
+                                    if (a != null){
+                                        String value = xpp.getText();
+                                        if(type.equals("SKY")){
+                                            switch(value){
+                                                case "1":
+                                                    a.setFcstValue("맑음");
+                                                    break;
+                                                case "3":
+                                                    a.setFcstValue("구름많음");
+                                                    break;
+                                                case "4":
+                                                    a.setFcstValue("흐림");
+                                                    break;
+                                                default:
+                                                    a.setFcstValue("오류");
+                                                    break;
+                                            }
+                                        }else if(type.equals("POP")){
+                                            a.setFcstValue(value + "%");
+                                        }else{
+                                            a.setFcstValue(value + "℃");
+                                        }
+                                    }
                                 }
                                 break;
 
