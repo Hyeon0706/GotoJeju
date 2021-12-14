@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,44 +26,42 @@ import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 
 public class test1 extends Activity {
-    TextView title,pNum,addr,ovview,imageurl;
+    TextView title,pNum,addr,ovview;
     ImageView image;
-    EditText in;
+
+    Context context;
+
     static String mx;
     static String my;
     static String iUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
 
-        in = (EditText)findViewById(R.id.editText);
+
         title = (TextView)findViewById(R.id.tvTitle);
         pNum = (TextView)findViewById(R.id.tvPnum);
         addr = (TextView)findViewById(R.id.tvAddr);
         ovview = (TextView)findViewById(R.id.tvOvviwe);
         image = (ImageView)findViewById(R.id.imageView);
-        imageurl = (TextView)findViewById(R.id.imageurl);
 
         Intent intent = getIntent();
 
         String conId = intent.getExtras().getString("conId");
 
+
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언;
-                String input = in.getText().toString();
-
-                String Iurl;
-
-
-
                 String queryUrl="http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 
                         +"serviceKey=" + "Mnd5loDKrv7cw39tujxqlBxVsNrPl2lI5cPZ42QmJTzRIRtOibD66%2BpLD0MRFtCJDoCcIqvzb4V29lnnidqkrA%3D%3D"
-                        +"&numOfRows=" + "1"
+                        +"&numOfRows=" + "10"
                         +"&pageNo=" + "1"
                         +"&MobileOS=" + "AND"
                         +"&MobileApp=" + "AppTest"
@@ -87,7 +86,6 @@ public class test1 extends Activity {
 
                     xpp.next();
                     int eventType = xpp.getEventType();
-                    infoItem a = null;
                     while (eventType != XmlPullParser.END_DOCUMENT) {  // 문서의 끝일때는 while문 종료
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
@@ -97,35 +95,35 @@ public class test1 extends Activity {
                             case XmlPullParser.START_TAG:  // 시작 태그로 데이터를 얻기위함
                                 tag = xpp.getName();//태그 이름 얻어오기
 
-                                if (tag.equals("item")){
-                                    a = new infoItem();
-                                }else if (tag.equals("title")) {
-                                    xpp.next();
-                                    if (a != null) title.setText(xpp.getText());
-                                } else if (tag.equals("tel")) {
-
-                                    xpp.next();
-                                    if (a != null) pNum.setText(xpp.getText());
+                                if (tag.equals("item")) {
                                 } else if (tag.equals("addr1")) {
-
                                     xpp.next();
-                                    if (a != null) addr.setText(xpp.getText());
-                                } else if (tag.equals("overview")) {
-
+                                    addr.setText(xpp.getText());
+                                }else if (tag.equals("firstimage")) {
                                     xpp.next();
-                                    if (a != null) ovview.setText(xpp.getText());
-                                }else if (tag.equals("mapy")) {
+                                    iUrl = xpp.getText();
 
-                                    xpp.next();
-                                    my = xpp.getText();
+
                                 }else if (tag.equals("mapx")) {
 
                                     xpp.next();
                                     mx = xpp.getText();
-                                }else if (tag.equals("firstimage")) {
+                                }else if (tag.equals("mapy")) {
 
                                     xpp.next();
-                                    iUrl = xpp.getText();
+                                    my = xpp.getText();
+                                } else if (tag.equals("overview")) {
+                                    xpp.next();
+                                    ovview.setText(xpp.getText());
+
+                                } else if (tag.equals("tel")) {
+                                    xpp.next();
+                                    pNum.setText(xpp.getText());
+                                }else if (tag.equals("title")) {
+                                    xpp.next();
+                                    title.setText(xpp.getText());
+
+
                                 }
                                 break;
 
@@ -136,7 +134,6 @@ public class test1 extends Activity {
                                 tag = xpp.getName(); //테그 이름 얻어오기
 
                                 if (tag.equals("item")) {
-                                    a = null;
                                 }
                                 break;
                         }
@@ -170,7 +167,6 @@ public class test1 extends Activity {
                 startActivity(i);
             }
         });
-
         Button button4 = (Button) findViewById(R.id.button4);   //이 버튼 누르면 찜하기 페이지로 넘어가면서
         button4.setOnClickListener(new View.OnClickListener() { //콘텐츠 ID넘깁니다!
             @Override
