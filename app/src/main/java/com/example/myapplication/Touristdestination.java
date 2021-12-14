@@ -8,7 +8,7 @@ public class Touristdestination {
     private String addr; // 주소
     private String tel; // 전화번호
     private String firstimage; // 이미지
-    private String contentid; //
+    private String contentid; // 관광지 정보창 연동을 위한 콘테츠 아이디
 
     public Touristdestination(){
         super();

@@ -17,17 +17,6 @@ public class Xmlparser extends Thread {
 
 
 
-    public Xmlparser() {
-        try {
-            apiParserSearch();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
-
     public ArrayList<Touristdestination> apiParserSearch() throws Exception {
         URL url = new URL(getURLParam(null));
 
@@ -116,16 +105,11 @@ public class Xmlparser extends Thread {
     }
 
 
-    private String getURLParam(String search){ // API를 호출받기 위한 URL(위도경도에서 반경 5Km 관광지 정보를 불러옴
+    private String getURLParam(String search){ // API를 호출받기 위한 URL(위도경도에서 반경 5Km 관광지 정보를 불러옴)
         String url = URL + "ServiceKey=" + KEY + "&numOfRows=50&pageNo=1&MobileOS=AND&MobileApp=gotojeju&arrange=A&contentTypeId=12"
                 + "&mapX=" + mapx + "&mapY=" + mapy + "&radius=" + radius + "&listYN=Y";
 
         return url;
-    }
-
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        new Xmlparser();
     }
 
 }
