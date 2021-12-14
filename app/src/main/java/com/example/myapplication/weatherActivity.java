@@ -35,9 +35,9 @@ public class weatherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         Intent intent = getIntent();
-        String type = intent.getExtras().getString("type");
-        String local = intent.getExtras().getString("local");
-        if(local.equals("제주시")){
+        String type = intent.getExtras().getString("type");     //원하는 날씨 정보를 출력하기 위해 가져옴
+        String local = intent.getExtras().getString("local");   //제주시와 서귀포시로 나누기 위해 가져옴
+        if(local.equals("제주시")){    //api에서 경도,위도 좌표를 이용한 날씨 조회를 지원하지 않아서 제주시와 서귀포시로 나눔
             nx = "53";
             ny = "38";
         }else{
@@ -45,9 +45,10 @@ public class weatherActivity extends Activity {
             ny = "33";
         }
         TextView tv1 = (TextView) findViewById(R.id.textView);
-        String wtType = intent.getExtras().getString("ktype");
+        String wtType = intent.getExtras().getString("ktype");  //원하는 날씨 정보를 출력하기 위해 가져옴
         tv1.setText(wtType);
         btn = (ImageButton) findViewById(R.id.back);
+        //뒤로가기 버튼
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,9 +58,9 @@ public class weatherActivity extends Activity {
         });
 
         g = findViewById(R.id.guideline);
-        recyclerView = findViewById(R.id.searchRecycler); // 변수연결
+        recyclerView = findViewById(R.id.searchRecycler);
         refreshLayout = findViewById(R.id.layout_swipe);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() { //리스트의 갱신을 위해 사용
             @Override
             public void onRefresh() {
 
@@ -76,9 +77,9 @@ public class weatherActivity extends Activity {
             @Override
             public void run() {
                 singleItems.clear();
-                StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언
-                SimpleDateFormat sd1 = new SimpleDateFormat("YYYYMMdd");
-                SimpleDateFormat sd2 = new SimpleDateFormat("hh");
+                StringBuffer buffer = new StringBuffer();
+                SimpleDateFormat sd1 = new SimpleDateFormat("YYYYMMdd");    //현재 날짜와
+                SimpleDateFormat sd2 = new SimpleDateFormat("hh");          //현재 시간을 얻어옴
                 Date date = new Date();
                 String day = sd1.format(date);
                 String time = sd2.format(date);
@@ -88,31 +89,31 @@ public class weatherActivity extends Activity {
 
                         + "&pageNo=" + "1"
                         + "&numOfRows=" + "288"
-                        + "&base_date=" + "20211214"
-                        + "&base_time=" + "0500"
+                        + "&base_date=" + day
+                        + "&base_time=" + time + "00"
                         + "&nx=" + nx
                         + "&ny=" + ny;
-                //itemName 태그로 검색을 하기 위함
-                try {
-                    URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
-                    InputStream is = url.openStream(); //url위치로 입력스트림 연결
-                    //XmlPullParser 객체 생성
+
+                try {   //날씨 정보 xml데이터 파싱
+                    URL url = new URL(queryUrl);
+                    InputStream is = url.openStream();
+
                     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                     XmlPullParser xpp = factory.newPullParser();
-                    xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
+                    xpp.setInput(new InputStreamReader(is, "UTF-8"));
 
-                    String tag; // 태그를 통해 구별하기 위한 변수선언
+                    String tag;
                     xpp.next();
                     int eventType = xpp.getEventType();
                     weatherSingleitem a = null;
-                    while (eventType != XmlPullParser.END_DOCUMENT) {  // 문서의 끝일때는 while문 종료
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
                                 buffer.append("파싱 시작...\n\n");
                                 break;
 
-                            case XmlPullParser.START_TAG:  // 시작 태그로 데이터를 얻기위함
-                                tag = xpp.getName();//태그 이름 얻어오기
+                            case XmlPullParser.START_TAG:
+                                tag = xpp.getName();
 
                                 if (tag.equals("item"))
                                     a = new weatherSingleitem();
@@ -131,7 +132,7 @@ public class weatherActivity extends Activity {
 
                                     xpp.next();
                                     if (a != null){
-                                        String value = xpp.getText();
+                                        String value = xpp.getText();   //선택한 기상 정보에 따라 다른 값을 출력
                                         if(type.equals("SKY")){
                                             switch(value){
                                                 case "1":
@@ -160,7 +161,7 @@ public class weatherActivity extends Activity {
                                 break;
 
                             case XmlPullParser.END_TAG:
-                                tag = xpp.getName(); //테그 이름 얻어오기
+                                tag = xpp.getName();
 
                                 if (tag.equals("item")) {
                                     if(category.equals(type)){

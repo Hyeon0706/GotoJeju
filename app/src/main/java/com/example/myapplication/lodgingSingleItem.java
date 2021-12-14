@@ -1,10 +1,10 @@
 package com.example.myapplication;
 
 public class lodgingSingleItem {
-    private String title;
-    private String addr;
-    private String pNum;
-    private String Iurl;
+    private String title;   //숙소 이름
+    private String addr;    //숙소 주소
+    private String pNum;    //숙소 번호
+    private String Iurl;    //숙소 이미지
     public lodgingSingleItem() {
     }
     public lodgingSingleItem(String title, String addr, String pNum, String Iurl){

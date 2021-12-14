@@ -48,8 +48,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    /*public void btn(View v){
-        Toast.makeText(getApplicationContext(),"버튼을 클릭했습니다!",Toast.LENGTH_LONG).show();
-    }*/
-
 }

@@ -40,7 +40,7 @@ public class Categori extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //지도로보기로 이동하는 버튼
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,14 +59,14 @@ public class Categori extends AppCompatActivity {
 
         explistView.setAdapter(listAdapter);
 
-        // 차일드 뷰를 눌렀을 경우 이벤트 발생
+        // 안쪽 그룹 클릭시 발생하는 이벤트
         explistView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                AlertDialog.Builder builder = new AlertDialog.Builder(Categori.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Categori.this);   //정렬 방식을 선택할수 있게 하기위해 AlertDialog출력
 
                 builder.setTitle("정렬 방식을 선택하세요!");
 
@@ -77,7 +77,7 @@ public class Categori extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(),TDListActivity.class);
                         String[] items = getResources().getStringArray(R.array.selectArrange);
                         i.putExtra("local",listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
-                        if(items[pos].equals("가나다순")){
+                        if(items[pos].equals("가나다순")){  //원하는 방식을 선택하면 해당 값을 넘김
                             i.putExtra("arrange","A");
                             startActivity(i);
                         }else{
@@ -93,36 +93,36 @@ public class Categori extends AppCompatActivity {
         });
 
     }
-    private void ChildListData() {
+    private void ChildListData() {  //제주도를 위치별로 나눔
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
         // 그룹 생성
-        listDataHeader.add("제주시 동부");
+        listDataHeader.add("제주시 동부");   //바깥쪽그룹
         listDataHeader.add("제주시 서부");
         listDataHeader.add("서귀포시 동부");
         listDataHeader.add("서귀포시 서부");
 
         // 그룹 내 차일드 뷰 생성
         List<String> eastJeju = new ArrayList<String>();
-        eastJeju.add("제주시내");
+        eastJeju.add("제주시내");       //안쪽그룹
         eastJeju.add("조천읍");
         eastJeju.add("구좌읍");
         eastJeju.add("우도면");
 
         List<String> westJeju = new ArrayList<String>();
-        westJeju.add("한경면");
+        westJeju.add("한경면");        //안쪽그룹
         westJeju.add("한림읍");
         westJeju.add("애월읍");
         westJeju.add("추자면");
 
         List<String> eastSeo = new ArrayList<String>();
-        eastSeo.add("남원읍");
+        eastSeo.add("남원읍");         //안쪽그룹
         eastSeo.add("성산읍");
         eastSeo.add("표선면");
 
         List<String> westSeo = new ArrayList<String>();
-        westSeo.add("서귀포시내");
+        westSeo.add("서귀포시내");       //안쪽그룹
         westSeo.add("대정읍");
         westSeo.add("안덕면");
 

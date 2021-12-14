@@ -40,12 +40,13 @@ public class tdAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         tdAdapter.VH vh= (tdAdapter.VH)holder;
 
-        //현재번째(position) 아이템 얻어오기
+
         tdSingleitem s= List.get(position);
         vh.tvTitle.setText(s.getTitle());
         vh.tvAddr.setText(s.getAddr());
         vh.tvPnum.setText(s.getpNum());
         Glide.with(context).load(s.getIurl()).fallback(R.drawable.no_image).into(vh.iv);
+        //관광지의 이미지가 없을경우 준비된 다른 이미지를 띄움
 
     }
 

@@ -1,10 +1,10 @@
 package com.example.myapplication;
 
 public class weatherSingleitem {
-    private String fcstDate;
-    private String fcstTime;
-    private String category;
-    private String fcstValue;
+    private String fcstDate;    //예보 날짜
+    private String fcstTime;    //예보 시간
+    private String category;    //예보 타입
+    private String fcstValue;   //결과값
     public weatherSingleitem() {
     }
     public weatherSingleitem(String fcstDate, String fcstTime, String category, String fcstValue){

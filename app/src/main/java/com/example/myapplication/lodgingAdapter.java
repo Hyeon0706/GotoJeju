@@ -11,8 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.bumptech.glide.Glide;
-
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -40,12 +38,13 @@ public class lodgingAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         VH vh= (VH)holder;
 
-        //현재번째(position) 아이템 얻어오기
+
         lodgingSingleItem s= List.get(position);
         vh.tvTitle.setText(s.getTitle());
         vh.tvAddr.setText(s.getAddr());
         vh.tvPnum.setText(s.getpNum());
         Glide.with(context).load(s.getIurl()).fallback(R.drawable.no_image).into(vh.iv);
+        //숙소의 이미지는 있을경우 가져오고 없으면 준비된 다른 이미지를 띄움
 
 
     }

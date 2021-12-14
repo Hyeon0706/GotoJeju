@@ -1,11 +1,11 @@
 package com.example.myapplication;
 
 public class tdSingleitem {
-    private String title;
-    private String addr;
-    private String pNum;
-    private String Iurl;
-    private String conId;
+    private String title;   //관광지 이름
+    private String addr;    //관광지 주소
+    private String pNum;    //관광지 번호
+    private String Iurl;    //관광지 이미지 url
+    private String conId;   //관광지의 식별 번호
     public tdSingleitem() {
     }
     public tdSingleitem(String title, String addr, String pNum, String Iurl, String conId){

@@ -34,12 +34,13 @@ public class lodgingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lodging);
         Intent intent = getIntent();
-        String getmx = intent.getExtras().getString("mapX");
-        String getmy = intent.getExtras().getString("mapY");
-        String arrange = intent.getExtras().getString("arrange");
+        String getmx = intent.getExtras().getString("mapX");    //관광지 기준 5km범위 내의 숙소를 찾아야 하기 때문에
+        String getmy = intent.getExtras().getString("mapY");    //x좌표와 y좌표를 가져옴
+        String arrange = intent.getExtras().getString("arrange");//선택한 정렬방식 가져옴
         double getMx = Double.parseDouble(getmx);
         double getMy = Double.parseDouble(getmy);
         btn = (ImageButton) findViewById(R.id.back);
+        //뒤로가기 버튼
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,9 +50,9 @@ public class lodgingActivity extends Activity {
         });
 
         g = findViewById(R.id.guideline);
-        recyclerView = findViewById(R.id.searchRecycler); // 변수연결
+        recyclerView = findViewById(R.id.searchRecycler);
         refreshLayout= findViewById(R.id.layout_swipe);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() { //리스트의 갱신을 위해 SwipeRefresh 사용
             @Override
             public void onRefresh() {
 
@@ -68,7 +69,7 @@ public class lodgingActivity extends Activity {
             @Override
             public void run() {
                 singleItems.clear();
-                StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언
+                StringBuffer buffer = new StringBuffer();
 
                 String queryUrl="http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?"
 
@@ -81,28 +82,28 @@ public class lodgingActivity extends Activity {
                         +"&arrange=" + arrange
                         +"&listYN=" + "Y"
                         +"&areaCode=" + "39";
-                //itemName 태그로 검색을 하기 위함
-                try {
-                    URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
-                    InputStream is = url.openStream(); //url위치로 입력스트림 연결
-                    //XmlPullParser 객체 생성
+
+                try {   //xml데이터를 파싱
+                    URL url = new URL(queryUrl);
+                    InputStream is = url.openStream();
+
                     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                     XmlPullParser xpp = factory.newPullParser();
-                    xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
+                    xpp.setInput(new InputStreamReader(is, "UTF-8"));
 
-                    String tag; // 태그를 통해 구별하기 위한 변수선언
+                    String tag;
 
                     xpp.next();
                     int eventType = xpp.getEventType();
                     lodgingSingleItem a = null;
-                    while (eventType != XmlPullParser.END_DOCUMENT) {  // 문서의 끝일때는 while문 종료
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
                                 buffer.append("파싱 시작...\n\n");
                                 break;
 
-                            case XmlPullParser.START_TAG:  // 시작 태그로 데이터를 얻기위함
-                                tag = xpp.getName();//태그 이름 얻어오기
+                            case XmlPullParser.START_TAG:
+                                tag = xpp.getName();
 
                                 if (tag.equals("item"))
                                     a = new lodgingSingleItem();
@@ -137,10 +138,10 @@ public class lodgingActivity extends Activity {
                                 break;
 
                             case XmlPullParser.END_TAG:
-                                tag = xpp.getName(); //테그 이름 얻어오기
+                                tag = xpp.getName();
 
                                 if (tag.equals("item")) {
-                                    if(distance(my,mx,getMy,getMx)<=5){ //여기 숫자 좌표에 관광지 좌표 띄우면 됨
+                                    if(distance(my,mx,getMy,getMx)<=5){
                                         singleItems.add(a);
                                         a = null;
                                     }
@@ -157,7 +158,7 @@ public class lodgingActivity extends Activity {
             }
         }).start();
     }
-    private static double distance(double lat1, double lon1, double lat2, double lon2) { //거리 계산
+    private static double distance(double lat1, double lon1, double lat2, double lon2) { //거리를 계산후 km값을 반환
 
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
@@ -171,13 +172,10 @@ public class lodgingActivity extends Activity {
         return (dist);
     }
 
-
-    // This function converts decimal degrees to radians
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
 
-    // This function converts radians to decimal degrees
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }

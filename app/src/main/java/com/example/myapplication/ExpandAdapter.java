@@ -102,13 +102,6 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        //그룹을 펼칠 때 또는 닫을 때 아이콘 변경
-        /*if(isExpanded){
-            viewHolder.iv_image.setBackgroundColor(Color.GREEN);
-        }else{
-            viewHolder.iv_image.setBackgroundColor(Color.WHITE);
-        }*/
-
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.groupName);
         lblListHeader.setTypeface(null, Typeface.BOLD);

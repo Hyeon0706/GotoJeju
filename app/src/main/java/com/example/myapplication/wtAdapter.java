@@ -35,7 +35,7 @@ public class wtAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         wtAdapter.VH vh= (wtAdapter.VH)holder;
 
-        //현재번째(position) 아이템 얻어오기
+
         weatherSingleitem s= List.get(position);
         vh.value.setText(s.getFcstValue());
         vh.wtime.setText(s.getFcstTime());
