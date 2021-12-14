@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">제주도 갈래?</string>
+
+    <string-array name = "selectCategory">
+        <item>"하늘 상태"</item>
+        <item>"강수 확률"</item>
+        <item>"기온"</item>
+    </string-array>
+    <string-array name = "selectArrange">
+        <item>"가나다순"</item>
+        <item>"조회순(visitkorea 조회수 기준)"</item>
+    </string-array>
 </resources>

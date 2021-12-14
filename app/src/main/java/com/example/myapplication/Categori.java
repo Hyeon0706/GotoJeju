@@ -66,9 +66,28 @@ public class Categori extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(getApplicationContext(), TDListActivity.class);
-                intent.putExtra("local",listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Categori.this);
+
+                builder.setTitle("정렬 방식을 선택하세요!");
+
+                builder.setItems(R.array.selectArrange, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        Intent i = new Intent(getApplicationContext(),TDListActivity.class);
+                        String[] items = getResources().getStringArray(R.array.selectArrange);
+                        i.putExtra("local",listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
+                        if(items[pos].equals("가나다순")){
+                            i.putExtra("arrange","A");
+                            startActivity(i);
+                        }else{
+                            i.putExtra("arrange","B");
+                            startActivity(i);
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return false;
             }
         });

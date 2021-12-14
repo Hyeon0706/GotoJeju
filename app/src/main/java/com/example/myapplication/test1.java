@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,6 +37,7 @@ public class test1 extends Activity {
     static String mx;
     static String my;
     static String iUrl;
+    static String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +102,7 @@ public class test1 extends Activity {
                                 if (tag.equals("item")) {
                                 } else if (tag.equals("addr1")) {
                                     xpp.next();
+                                    address = xpp.getText();
                                     addr.setText(xpp.getText());
                                 }else if (tag.equals("firstimage")) {
                                     xpp.next();
@@ -161,10 +166,29 @@ public class test1 extends Activity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),lodgingActivity.class);
-                i.putExtra("mapX",mx);
-                i.putExtra("mapY",my);
-                startActivity(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(test1.this);
+
+                builder.setTitle("정렬 방식을 선택하세요!");
+
+                builder.setItems(R.array.selectArrange, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        Intent i = new Intent(getApplicationContext(),lodgingActivity.class);
+                        String[] items = getResources().getStringArray(R.array.selectArrange);
+                        i.putExtra("mapX",mx);
+                        i.putExtra("mapY",my);
+                        if(items[pos].equals("가나다순")){
+                            i.putExtra("arrange","A");
+                            startActivity(i);
+                        }else{
+                            i.putExtra("arrange","B");
+                            startActivity(i);
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
         Button button4 = (Button) findViewById(R.id.button4);   //이 버튼 누르면 찜하기 페이지로 넘어가면서
@@ -176,6 +200,52 @@ public class test1 extends Activity {
                 startActivity(i);
             }
         });
+        Button button5 = (Button) findViewById(R.id.button5);   //이 버튼 누르면 찜하기 페이지로 넘어가면서
+        button5.setOnClickListener(new View.OnClickListener() { //콘텐츠 ID넘깁니다!
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(test1.this);
+
+                builder.setTitle("알고싶은 정보를 선택하세요!");
+
+                builder.setItems(R.array.selectCategory, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        Intent i = new Intent(getApplicationContext(),weatherActivity.class);
+                        String[] items = getResources().getStringArray(R.array.selectCategory);
+                        if(items[pos].equals("하늘 상태")){
+                            i.putExtra("type","SKY");
+                            i.putExtra("ktype","하늘 상태");
+                            i.putExtra("local",checkCity(address));
+                            startActivity(i);
+                        }else if(items[pos].equals("강수 확률")){
+                            i.putExtra("type","POP");
+                            i.putExtra("ktype","강수 확률");
+                            i.putExtra("local",checkCity(address));
+                            startActivity(i);
+                        }else{
+                            i.putExtra("type","TMP");
+                            i.putExtra("ktype","기온");
+                            i.putExtra("local",checkCity(address));
+                            startActivity(i);
+                        }
+
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+        });
+    }
+    private static String checkCity(String address){
+        String str = address;
+        String[] arr = str.split(" ");
+        String city = arr[1];
+        return city;
     }
 }
 

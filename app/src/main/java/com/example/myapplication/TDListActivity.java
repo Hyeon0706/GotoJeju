@@ -38,9 +38,9 @@ public class TDListActivity extends Activity {
         setContentView(R.layout.activity_tdlist);
 
         TextView tv1 = (TextView) findViewById(R.id.textView);
-
         Intent intent = getIntent(); /*데이터 수신*/
         String name = intent.getExtras().getString("local");
+        String arrange = intent.getExtras().getString("arrange");
         tv1.setText(name);
         btn = (ImageButton) findViewById(R.id.back);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class TDListActivity extends Activity {
                         +"&numOfRows=" + "450"
                         +"&MobileOS=" + "AND"
                         +"&MobileApp=" + "AppTest"
-                        +"&arrange=" + "A"
+                        +"&arrange=" + arrange
                         +"&contentTypeId=" + "12"
                         +"&listYN=" + "Y"
                         +"&areaCode=" + "39";

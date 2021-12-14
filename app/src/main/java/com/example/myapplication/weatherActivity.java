@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,39 +17,48 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class lodgingActivity extends Activity {
-    static double my;
-    static double mx;
+public class weatherActivity extends Activity {
     RecyclerView recyclerView;
-    ArrayList<lodgingSingleItem> singleItems = new ArrayList<>();
-    lodgingAdapter adapter;
+    ArrayList<weatherSingleitem> singleItems = new ArrayList<>();
+    wtAdapter adapter;
     SwipeRefreshLayout refreshLayout;
     TextView g;
     ImageButton btn;
+    static String category;
+    static String nx, ny;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lodging);
+        setContentView(R.layout.activity_weather);
         Intent intent = getIntent();
-        String getmx = intent.getExtras().getString("mapX");
-        String getmy = intent.getExtras().getString("mapY");
-        String arrange = intent.getExtras().getString("arrange");
-        double getMx = Double.parseDouble(getmx);
-        double getMy = Double.parseDouble(getmy);
+        String type = intent.getExtras().getString("type");
+        String local = intent.getExtras().getString("local");
+        if(local.equals("제주시")){
+            nx = "53";
+            ny = "38";
+        }else{
+            nx = "52";
+            ny = "33";
+        }
+        TextView tv1 = (TextView) findViewById(R.id.textView);
+        String wtType = intent.getExtras().getString("ktype");
+        tv1.setText(wtType);
         btn = (ImageButton) findViewById(R.id.back);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(lodgingActivity.this, test1.class);
+                Intent intent = new Intent(weatherActivity.this, test1.class);
                 startActivity(intent);
             }
         });
 
         g = findViewById(R.id.guideline);
         recyclerView = findViewById(R.id.searchRecycler); // 변수연결
-        refreshLayout= findViewById(R.id.layout_swipe);
+        refreshLayout = findViewById(R.id.layout_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -60,7 +68,7 @@ public class lodgingActivity extends Activity {
                 g.setVisibility(View.GONE);
             }
         });
-        adapter = new lodgingAdapter(singleItems, this);
+        adapter = new wtAdapter(singleItems, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -69,18 +77,21 @@ public class lodgingActivity extends Activity {
             public void run() {
                 singleItems.clear();
                 StringBuffer buffer = new StringBuffer(); // 데이터를 담을 임시공간 선언
-
-                String queryUrl="http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?"
+                SimpleDateFormat sd1 = new SimpleDateFormat("YYYYMMdd");
+                SimpleDateFormat sd2 = new SimpleDateFormat("hh");
+                Date date = new Date();
+                String day = sd1.format(date);
+                String time = sd2.format(date);
+                String queryUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"
 
                         + "serviceKey=" + "46rvMskXxMWkqJuYkMxwx%2FZnnKSI0pO%2FOGiu3%2FCVSsUlEdoCAMWXfC%2Bk5DRGlrorCjbvJbb2ZcbPbWh8ZxNY6Q%3D%3D"
 
-                        +"&numOfRows=" + "218"
-                        +"&pageNo=" + "1"
-                        +"&MobileOS=" + "AND"
-                        +"&MobileApp=" + "AppTest"
-                        +"&arrange=" + arrange
-                        +"&listYN=" + "Y"
-                        +"&areaCode=" + "39";
+                        + "&pageNo=" + "1"
+                        + "&numOfRows=" + "288"
+                        + "&base_date=" + "20211214"
+                        + "&base_time=" + "0500"
+                        + "&nx=" + nx
+                        + "&ny=" + ny;
                 //itemName 태그로 검색을 하기 위함
                 try {
                     URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
@@ -91,10 +102,9 @@ public class lodgingActivity extends Activity {
                     xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
 
                     String tag; // 태그를 통해 구별하기 위한 변수선언
-
                     xpp.next();
                     int eventType = xpp.getEventType();
-                    lodgingSingleItem a = null;
+                    weatherSingleitem a = null;
                     while (eventType != XmlPullParser.END_DOCUMENT) {  // 문서의 끝일때는 while문 종료
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
@@ -105,31 +115,23 @@ public class lodgingActivity extends Activity {
                                 tag = xpp.getName();//태그 이름 얻어오기
 
                                 if (tag.equals("item"))
-                                    a = new lodgingSingleItem();
-                                else if (tag.equals("title")) {
+                                    a = new weatherSingleitem();
+                                else if (tag.equals("category")) {
                                     xpp.next();
-                                    if (a != null) a.setTitle(xpp.getText());
-                                } else if (tag.equals("tel")) {
+                                    category = xpp.getText();
+                                    if (a != null) a.setCategory(xpp.getText());
+                                } else if (tag.equals("fcstTime")) {
 
                                     xpp.next();
-                                    if (a != null) a.setpNum(xpp.getText());
-                                } else if (tag.equals("addr1")) {
+                                    if (a != null) a.setFcstTime(xpp.getText());
+                                } else if (tag.equals("fcstDate")) {
 
                                     xpp.next();
-                                    if (a != null) a.setAddr(xpp.getText());
-                                } else if (tag.equals("firstimage")) {
+                                    if (a != null) a.setFcstDate(xpp.getText());
+                                } else if (tag.equals("fcstValue")) {
 
                                     xpp.next();
-                                    if (a != null) a.setIurl(xpp.getText());
-                                } else if (tag.equals("mapy")) {
-
-                                    xpp.next();
-                                    my = Double.parseDouble(xpp.getText());
-
-                                } else if (tag.equals("mapx")) {
-
-                                    xpp.next();
-                                    mx = Double.parseDouble(xpp.getText());
+                                    if (a != null) a.setFcstValue(xpp.getText());
                                 }
                                 break;
 
@@ -140,7 +142,7 @@ public class lodgingActivity extends Activity {
                                 tag = xpp.getName(); //테그 이름 얻어오기
 
                                 if (tag.equals("item")) {
-                                    if(distance(my,mx,getMy,getMx)<=5){ //여기 숫자 좌표에 관광지 좌표 띄우면 됨
+                                    if(category.equals(type)){
                                         singleItems.add(a);
                                         a = null;
                                     }
@@ -157,29 +159,4 @@ public class lodgingActivity extends Activity {
             }
         }).start();
     }
-    private static double distance(double lat1, double lon1, double lat2, double lon2) { //거리 계산
-
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344;
-
-
-        return (dist);
-    }
-
-
-    // This function converts decimal degrees to radians
-    private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    // This function converts radians to decimal degrees
-    private static double rad2deg(double rad) {
-        return (rad * 180 / Math.PI);
-    }
-
 }
