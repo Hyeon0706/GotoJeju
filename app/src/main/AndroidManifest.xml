@@ -44,7 +44,7 @@
         <activity android:name=".MapActivity"/>
         <activity android:name=".Categori"/>
         <activity android:name=".TDListActivity"/>
-        <activity android:name=".test1"/>
+        <activity android:name=".InfoActivity"/>
         <activity android:name=".lodgingActivity"/>
         <activity android:name=".weatherActivity"/>
 

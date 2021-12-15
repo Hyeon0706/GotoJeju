@@ -52,7 +52,7 @@ public class weatherActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(weatherActivity.this, test1.class);
+                Intent intent = new Intent(weatherActivity.this, InfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,6 +83,9 @@ public class weatherActivity extends Activity {
                 Date date = new Date();
                 String day = sd1.format(date);
                 String time = sd2.format(date);
+                int time1 = Integer.parseInt(time);
+                int time2 = time1-5;
+                String time3 = Integer.toString(time2);
                 String queryUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?"
 
                         + "serviceKey=" + "46rvMskXxMWkqJuYkMxwx%2FZnnKSI0pO%2FOGiu3%2FCVSsUlEdoCAMWXfC%2Bk5DRGlrorCjbvJbb2ZcbPbWh8ZxNY6Q%3D%3D"
@@ -90,7 +93,7 @@ public class weatherActivity extends Activity {
                         + "&pageNo=" + "1"
                         + "&numOfRows=" + "288"
                         + "&base_date=" + day
-                        + "&base_time=" + time + "00"
+                        + "&base_time=" + time3 + "00"
                         + "&nx=" + nx
                         + "&ny=" + ny;
 

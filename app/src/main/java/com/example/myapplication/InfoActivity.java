@@ -6,16 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -23,15 +18,14 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
 
-public class test1 extends Activity {
+public class InfoActivity extends Activity {
     TextView title,pNum,addr,ovview;
     ImageView image;
-
+    ImageButton map;
+    ImageButton categori;
     Context context;
 
     static String mx;
@@ -44,7 +38,26 @@ public class test1 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-
+        //지도로 보기 이동 버튼
+        map = (ImageButton) findViewById(R.id.moveMap);
+        //뒤로가기 버튼
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+        //목록으로 보기 이동 버튼
+        categori = (ImageButton) findViewById(R.id.moveCategori);
+        //뒤로가기 버튼
+        categori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoActivity.this, Categori.class);
+                startActivity(intent);
+            }
+        });
 
         title = (TextView)findViewById(R.id.tvTitle);
         pNum = (TextView)findViewById(R.id.tvPnum);
@@ -166,7 +179,7 @@ public class test1 extends Activity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(test1.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InfoActivity.this);
 
                 builder.setTitle("정렬 방식을 선택하세요!");
 
@@ -190,6 +203,7 @@ public class test1 extends Activity {
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
+
         });
         Button button4 = (Button) findViewById(R.id.button4);   //이 버튼 누르면 찜하기 페이지로 넘어가면서
         button4.setOnClickListener(new View.OnClickListener() { //콘텐츠 ID넘깁니다!
@@ -205,7 +219,7 @@ public class test1 extends Activity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(test1.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InfoActivity.this);
 
                 builder.setTitle("알고싶은 정보를 선택하세요!");
 

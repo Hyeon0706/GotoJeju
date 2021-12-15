@@ -112,7 +112,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     @Override
                     public boolean onClick(@NonNull Overlay overlay)
                     {
-                        Intent intent = new Intent(getApplicationContext(),test1.class); // 마커에 해당하는 컨테츠아이디를 가져와 관광지정보화면으로 이동
+                        Intent intent = new Intent(getApplicationContext(), InfoActivity.class); // 마커에 해당하는 컨테츠아이디를 가져와 관광지정보화면으로 이동
                         intent.putExtra("conId",entity.getcontentid());
                         startActivity(intent);
 
